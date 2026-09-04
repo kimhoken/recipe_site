@@ -110,8 +110,8 @@
         </div>
     </div>
 
+    <input type="button" value="목록으로" onclick="location.href='/recipe_list.do'"/>
     <input type="button" value="수정" onclick="location.href='/recipe_update.do?recipe_id=${recipe.recipe_id}'"/>
     <input type="button" value="삭제" onclick="location.href='/recipe_delete.do?recipe_id=${recipe.recipe_id}'"/>
-    <input type="button" value="목록으로" onclick="location.href='/recipe_list.do'"/>
 </body>
 </html>

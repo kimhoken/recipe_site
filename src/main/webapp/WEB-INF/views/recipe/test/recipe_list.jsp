@@ -10,7 +10,7 @@
 </head>
 <body>
     <input type="button" value="메인으로" onclick="location.href='/'"/>
-    <input type="button" value="레시피 추가" onclick="location.href='recipe_insert.do'"/>
+    <input type="button" value="레시피 등록" onclick="location.href='recipe_insert.do'"/>
     <table border="1">
         <thead>
             <tr>
