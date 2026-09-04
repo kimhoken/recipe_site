@@ -6,8 +6,8 @@
 <html lang="ko">
 <head>
 
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/notice_update.css">
+    <link rel="stylesheet" href="/css/notice/main.css">
+    <link rel="stylesheet" href="/css/notice/notice_update.css">
 
     <script>
         // 새로 선택한 이미지 파일들을 따로 저장

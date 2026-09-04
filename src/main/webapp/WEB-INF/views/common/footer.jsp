@@ -5,10 +5,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
-        <link rel="stylesheet" href="/css/chatbot.css">
-
-        <script src="/js/chatbot.js"></script>
+        
     </head>
+
     <body>
         <footer>
         <div class="footer-container">
@@ -17,7 +16,7 @@
             <div class="cs-section">
                 <h3>고객센터</h3>
                 <div class="cs-buttons">
-                    <div class="cs-btn" onClick="location.href='/hidden.do'">📞 1833-8307</div>
+                    <div class="cs-btn" >📞 1833-8307</div>
                     <div class="cs-btn" onclick="location.href='/inquiry'">💬 1:1문의하기</div>
                 </div>
                 <div class="hours-info">
@@ -36,7 +35,7 @@
                         <a href="/terms.do"><strong>이용약관</strong></a>
                         <a href="/privacy.do"><strong>개인정보처리방침</strong></a>
                         <a href="/notice.do">공지사항</a>
-                        <a href="javascript:void(0);" onclick="openChatbot()">자주묻는질문</a>
+                        <a href="javascript:void(0);">자주묻는질문</a>
                     </div>
                 </div>
 
@@ -62,7 +61,7 @@
 
         </div>
         </footer>
-        <jsp:include page="/WEB-INF/views/chatbot/chatbot_main.jsp" />
+        
     </body>
 </html>
 

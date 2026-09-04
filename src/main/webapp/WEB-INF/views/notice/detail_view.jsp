@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/notice_detail.css">
+        <link rel="stylesheet" href="/css/notice/main.css">
+        <link rel="stylesheet" href="/css/notice/notice_detail.css">
 
         <script>
             function deleteNotice() {

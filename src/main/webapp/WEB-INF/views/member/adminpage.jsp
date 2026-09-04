@@ -10,9 +10,9 @@
     <html>
 
     <head>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_recipe.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_recipe.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_mypage.css" />
 
         <script src="/js/util.js"></script>
         <script src="/js/logout.js"></script>

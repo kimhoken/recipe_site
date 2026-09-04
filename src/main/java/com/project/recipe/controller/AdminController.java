@@ -1,0 +1,126 @@
+package com.project.recipe.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.project.recipe.common.AdminUtil;
+import com.project.recipe.common.Fileupload;
+import com.project.recipe.dao.MemberDAO;
+import com.project.recipe.vo.MemberVO;
+// import com.project.recipe.dao.RecipeDAO;
+// import com.project.recipe.vo.RecipeVO;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+
+
+
+
+
+@Controller
+@RequiredArgsConstructor
+public class AdminController {
+    
+    // 파일 저장 경로 세팅 
+    @Value("${file.upload.path}")
+    private String uploadPath;
+
+    private final HttpSession httpSession;
+    ///rivate final RecipeDAO recipeDAO;
+    private final AdminUtil adminUtil;
+    private final Fileupload fileupload;
+    private final MemberDAO memberDAO;
+    
+    // 관리자 페이지 이동 함수
+    @GetMapping("/admin")
+    public String adminpage(Model model) {
+
+        MemberVO user = (MemberVO) httpSession.getAttribute("user");
+
+        // List<RecipeVO> recentlyRecipe = recipeDAO.recentlyrecipe();
+
+        adminUtil.getTotalCount(model);
+
+        model.addAttribute("profileuser", user);
+        // model.addAttribute("list",recentlyRecipe);
+        model.addAttribute("contentPage", "/WEB-INF/views/member/admin/admin_home.jsp");
+
+        return "member/adminpage";
+
+    }
+
+    // 관리자 정보 페이지
+    @GetMapping("/admin/mypage")
+    public String adminmypage(Model model){
+
+        MemberVO user = (MemberVO) httpSession.getAttribute("user");
+
+        model.addAttribute("profileuser",user);
+        
+        adminUtil.setContentPage(model, "mypage");
+
+        return "member/adminpage";
+
+    } 
+
+    // 관리자 회원 정보 수정 페이지
+    @GetMapping("/admin/update")
+    public String getMethodName(Model model) {
+        MemberVO user = (MemberVO) httpSession.getAttribute("user");
+
+        model.addAttribute("profileuser", user);
+        model.addAttribute("contentPage", "/WEB-INF/views/member/admin/admin_update.jsp");
+
+        return "member/adminpage";
+    }
+    
+    // 관리자 회원 정보 수정 함수
+    @PostMapping("/admin/updatefin")
+    public String getMethodName(MemberVO vo, String filechange) throws Exception {
+        MemberVO user = (MemberVO)httpSession.getAttribute("user");
+        String savePath = "profile";
+        String filename = user.getProfile_img();
+
+        MultipartFile photo = vo.getPhoto();
+
+        if(filechange.equals("yes")){
+
+            fileupload.deleteFile(filename, savePath);
+
+            filename = "no_file.png";
+
+        }else if(photo != null && !photo.isEmpty()){
+
+            fileupload.deleteFile(filename,savePath);
+            filename = fileupload.saveFile(photo, savePath);
+
+        }else{
+            filename = user.getProfile_img();
+        }
+
+        vo.setMember_id(user.getMember_id());
+        vo.setFilename(filename);
+
+        int res = memberDAO.userUpdate(vo);
+
+        if(res > 0){
+            MemberVO updateduser = memberDAO.getUserByMemberId(vo.getMember_id());
+            httpSession.setAttribute("user", updateduser);
+
+            return "redirect:/admin/mypage";
+        }else{
+            return "redirect:/admin/update";
+        }
+    }
+    
+    
+
+    
+
+}

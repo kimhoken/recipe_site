@@ -6,10 +6,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/main.css"/>
-        <link rel="stylesheet" href="css/register_from.css"/>
-        <link rel="stylesheet" href="/css/chatbot.css" />
-
-        <script src="/js/chatbot.js"></script>
+        <link rel="stylesheet" href="css/login/register_from.css"/>
+        
+        
         <script>
             const nickname = '${nickname}';
             const name = '${socialUser.name}';
@@ -151,8 +150,7 @@
        
         <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
         
-        <!-- 챗봇 -->
-        <jsp:include page="/WEB-INF/views/chatbot/chatbot_main.jsp" />
+       
     </body>
 
 </html>

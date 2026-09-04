@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.recipe.dao.ViewCountDAO">
+
+    <!--  공통 조회 이력 확인 -->
+    <select id="viewHistory" resultType="int">
+        select count(*)
+        from content_view
+        where content_type = #{content_type}
+          and content_id = #{content_id}
+          and member_id = #{member_id}
+    </select>
+
+    <!--  공통 조회 이력 저장 -->
+    <insert id="viewInsert">
+        insert into content_view (
+            content_type,
+            content_id,
+            member_id,
+            viewed_date
+        ) values (
+            #{content_type},
+            #{content_id},
+            #{member_id},
+            now()
+        )
+    </insert>
+
+    <!--  공지사항 조회수 증가 -->
+    <update id="increaseNoticeViewCount" parameterType="int">
+        update notice
+        set view_count = ifnull(view_count, 0) + 1
+        where notice_id = #{notice_id}
+    </update>
+
+    <!--  레시피 조회수 증가 -->
+    <update id="increaseRecipeViewCount" parameterType="int">
+        update recipe
+        set view_count = ifnull(view_count, 0) + 1
+        where recipe_id = #{recipe_id}
+    </update>
+
+    <!--  게시판 조회수 증가 -->
+    <update id="increaseBoardViewCount" parameterType="int">
+        update board
+        set view_count = ifnull(view_count, 0) + 1
+        where board_id = #{board_id}
+    </update>
+
+    <update id="increaseReviewViewCount">
+        update review
+        set view_count = ifnull(view_count, 0) + 1
+        where review_id = #{review_id}
+    </update>
+
+</mapper>
