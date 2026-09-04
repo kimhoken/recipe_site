@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>오늘 뭐 먹지? - 로그인</title>
-    <link rel="stylesheet" href="/css/login.css" />
-    <link rel="stylesheet" href="/css/modal.css" />
+    <link rel="stylesheet" href="/css/login/login.css" />
+    <link rel="stylesheet" href="/css/login/modal.css" />
 
     <script>
         function send(f) {

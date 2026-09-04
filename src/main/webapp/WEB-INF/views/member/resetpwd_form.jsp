@@ -7,8 +7,8 @@
 
         <head>
             <link rel="stylesheet" href="/css/main.css" />
-            <link rel="stylesheet" href="/css/resetpwdpage.css" />
-
+            <link rel="stylesheet" href="/css/login/resetpwdpage.css" />
+            
             <script>
                 let pwd_valid = false;
 

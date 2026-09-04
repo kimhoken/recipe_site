@@ -5,7 +5,7 @@
 
 
     <head>
-        <link rel="stylesheet" href="/css/mypage.css" />
+        <link rel="stylesheet" href="/css/mypage/mypage.css" />
         <title>오늘 뭐 먹지? - 마이페이지</title>
         <script src="/js/mypage.js"></script>
         <script src="/js/logout.js"></script>
