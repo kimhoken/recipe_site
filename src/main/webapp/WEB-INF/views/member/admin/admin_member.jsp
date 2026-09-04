@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_member.css" />
-    <script src="${pageContext.request.contextPath}/js/util.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_member.css" />
+    <script src="${pageContext.request.contextPath}/js/admin_util.js"></script>
 
     <script>
         //  회원 상세 정보 모달 함수
