@@ -9,7 +9,8 @@
     <title>오늘 뭐 먹지? - 레시피 목록</title>
 </head>
 <body>
-    <input type="button" value="추가" onclick="location.href='recipe_insert.do'"/>
+    <input type="button" value="메인으로" onclick="location.href='/'"/>
+    <input type="button" value="레시피 추가" onclick="location.href='recipe_insert.do'"/>
     <table border="1">
         <thead>
             <tr>
@@ -32,7 +33,7 @@
                     <td>${recipe.recipe_id}</td>
                     <td><a href="recipe_detail.do?recipe_id=${recipe.recipe_id}">${recipe.title}</a></td>
                     <td>
-                        <img src="/upload/${recipe.thumbnail}"/>
+                        <img src="/upload/${recipe.thumbnail}" width="100px"/>
                     </td>
                     <td>${recipe.cooking_time}</td>
                     <td>${recipe.view_count}</td>
