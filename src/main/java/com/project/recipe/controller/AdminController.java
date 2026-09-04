@@ -71,8 +71,7 @@ public class AdminController {
 
     // 관리자 회원 정보 수정 페이지
     @GetMapping("/admin/update")
-    public String getMethodName(Model model) {
-        System.out.println("너무하다");
+    public String getMethodName(Model model) {        
         MemberVO user = (MemberVO) httpSession.getAttribute("user");
 
         model.addAttribute("profileuser", user);
