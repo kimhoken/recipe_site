@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <head>
-        <link rel="stylesheet" href="css/mypage_account.css"/>
+        <link rel="stylesheet" href="css/mypage/mypage_account.css"/>
         <script src="/js/mypage_delete.js"></script>
         
     </head>

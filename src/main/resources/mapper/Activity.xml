@@ -5,6 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.project.recipe.dao.ActivityDAO">
 
-
+<!-- 회원 최근 활동내역 5개 조회 -->
+<select id="userActivity" resultType="activity">
+    SELECT *
+    FROM v_member_activity
+    WHERE member_id = #{member_id}
+    ORDER BY created_date DESC
+    LIMIT 5;
+</select>
 
 </mapper>

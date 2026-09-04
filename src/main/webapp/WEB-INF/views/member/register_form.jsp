@@ -6,7 +6,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/main.css"/>
-        <link rel="stylesheet" href="css/register_from.css"/>
+        <link rel="stylesheet" href="css/login/register_from.css"/>
         
         
         <script>
