@@ -3,7 +3,7 @@
 
         <jsp:include page="/WEB-INF/views/common/nocache.jsp"/>
         <head>
-            <link rel="stylesheet" href="css/mypage_account.css" />
+            <link rel="stylesheet" href="css/mypage/mypage_account.css" />
 
             <script>
 

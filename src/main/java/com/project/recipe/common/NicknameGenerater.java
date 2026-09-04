@@ -16,6 +16,7 @@ public class NicknameGenerater {
         
         String randonname = String.format("%s%d", names[rand.nextInt(names.length)], rand.nextInt(9999));
 
+        
         return randonname;
     }
 

@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="/css/mypage.css" />
+    <link rel="stylesheet" href="/css/mypage/mypage.css" />
     <title>회원 프로필</title>
 </head>
 
