@@ -7,8 +7,8 @@
 
 <head>
 
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/notice/main.css">
+    <link rel="stylesheet" href="/css/notice/notice.css">
 
     <script>
         // 로그아웃 요청 후 성공 시 공지사항 목록으로 이동

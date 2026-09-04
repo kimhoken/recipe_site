@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/notice_add.css">
+        <link rel="stylesheet" href="/css/notice/main.css">
+        <link rel="stylesheet" href="/css/notice/notice_add.css">
 
         <script>
             let selectedFiles = []; 
