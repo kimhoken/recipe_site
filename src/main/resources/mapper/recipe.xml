@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.recipe.dao.RecipeDAO">
+    <select id="getRecipeList">
+        SELECT *
+        FROM recipe
+        ORDER BY created_date DESC
+    </select>
+
+    <select id="getRecipeById" parameterType="int" resultType="recipe">
+        SELECT *
+        FROM recipe
+        WHERE recipe_id = #{recipe_id}
+    </select>
+
+    <select id="getCookOrderById" parameterType="int" resultType="cookOrder">
+        SELECT *
+        FROM cook_order
+        WHERE recipe_id = #{recipe_id}
+    </select>
+
+    <insert id="addRecipe" parameterType="com.project.recipe.vo.RecipeVO" useGeneratedKeys="true" keyProperty="recipe_id">
+        INSERT INTO recipe (title, thumbnail, cooking_time, member_id)
+        VALUES (#{title}, #{thumbnail}, #{cooking_time}, #{member_id})
+    </insert>
+
+    <insert id="addCookOrder">
+        INSERT INTO cook_order (cook_image, description, recipe_id)
+        VALUES
+        <foreach collection="list" item="order" separator=",">
+            (#{order.cook_image}, #{order.description}, #{order.recipe_id})
+        </foreach>
+    </insert>
+</mapper>
