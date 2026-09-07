@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/guestInquiryDetail.css">
+    <link rel="stylesheet" href="/css/inquiry/guestInquiryDetail.css">
 </head>
 
 <body>

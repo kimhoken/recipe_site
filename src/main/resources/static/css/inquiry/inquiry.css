@@ -1,0 +1,438 @@
+.inquiry-page {
+    background: #f8f6ef;
+    color: #3f4638;
+    padding: 40px 0 60px;
+}
+
+.inquiry-form {
+    width: 820px;
+    margin: 0 auto;
+    background: #fffdf7;
+    padding: 34px 44px;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(79, 95, 58, 0.1);
+    border: 1px solid #e6e1d3;
+}
+
+.inquiry-title-box {
+    text-align: left;
+    margin-bottom: 0;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #ebe7da;
+}
+
+.inquiry-label {
+    display: inline-block;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: #e8ebdd;
+    color: #6f8157;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.inquiry-title-box h2 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #4f5f3a;
+}
+
+.inquiry-title-box p {
+    margin: 0;
+    color: #7b806f;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.inquiry-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.inquiry-table tr {
+    border-bottom: 1px solid #ebe7da;
+}
+
+.inquiry-table tr:last-child {
+    border-bottom: none;
+}
+
+.inquiry-table th {
+    width: 120px;
+    min-width: 120px;
+    height: 54px;
+    padding: 0;
+    text-align: left;
+    vertical-align: middle;
+    color: #5f6f49;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.inquiry-table td {
+    height: 54px;
+    padding: 8px 0;
+    vertical-align: middle;
+}
+
+.inquiry-table tr:first-child th,
+.inquiry-table tr:first-child td {
+    padding-top: 12px;
+}
+
+.inquiry-table input[type="text"],
+.inquiry-table input[type="email"],
+.inquiry-table input[type="password"],
+.inquiry-table textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d8d3c4;
+    border-radius: 10px;
+    background: #fbfaf5;
+    color: #3f4638;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.inquiry-table input[name="guest_name"],
+.inquiry-table input[name="guest_email"],
+.inquiry-table input[name="guest_password"] {
+    width: 360px;
+}
+
+.inquiry-table select {
+    width: 220px;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d8d3c4;
+    border-radius: 10px;
+    background: #fbfaf5;
+    color: #3f4638;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+}
+
+.inquiry-table textarea {
+    height: 300px;
+    resize: none;
+    line-height: 1.6;
+}
+
+.inquiry-table input[type="text"]:focus,
+.inquiry-table input[type="email"]:focus,
+.inquiry-table input[type="password"]:focus,
+.inquiry-table select:focus,
+.inquiry-table textarea:focus {
+    border-color: #7e8f6a;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(126, 143, 106, 0.12);
+}
+
+.inquiry-table input[readonly] {
+    background: #efeee7;
+    color: #777;
+    cursor: default;
+}
+
+.inquiry-table input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px dashed #b8c2a3;
+    border-radius: 10px;
+    background: #f5f6ee;
+    color: #6d765d;
+    cursor: pointer;
+}
+
+/* 첨부 이미지 미리보기 */
+#preview-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.preview-item {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    border: 1px solid #d8d3c4;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f5f6ee;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-item button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 21px;
+    height: 21px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 19px;
+    cursor: pointer;
+}
+
+.preview-item button:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.agree-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.agree-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4f5f3a;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+.agree-radio input {
+    width: 16px;
+    height: 16px;
+    accent-color: #6f8157;
+    cursor: pointer;
+}
+
+.agree-radio span {
+    display: none;
+}
+
+.agree-detail-btn {
+    border: none;
+    background: none;
+    color: #6f8157;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.agree-detail-btn:hover {
+    text-decoration: underline;
+}
+
+.inquiry-table .btn-area {
+    padding-top: 24px;
+    text-align: center;
+}
+
+.inquiry-table .btn-area input {
+    width: 150px;
+    height: 46px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+    margin: 0 6px;
+}
+
+.inquiry-table .submit-btn {
+    border: none;
+    background: #6f8157;
+    color: #fffdf7;
+    box-shadow: 0 8px 18px rgba(111, 129, 87, 0.22);
+}
+
+.inquiry-table .submit-btn:hover {
+    background: #586846;
+    transform: translateY(-2px);
+}
+
+.inquiry-table .cancel-btn {
+    border: 1px solid #ddd7c9;
+    background: #f7f4eb;
+    color: #6b665a;
+}
+
+.inquiry-table .cancel-btn:hover {
+    background: #efe9dc;
+    transform: translateY(-2px);
+}
+
+/* 개인정보 모달 */
+.agree-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.agree-modal-content {
+    width: 640px;
+    max-height: 82vh;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.close-btn {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #777;
+    font-size: 22px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.privacy-box {
+    padding: 34px 38px 8px;
+    max-height: 58vh;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+.privacy-box h3 {
+    margin: 0 42px 20px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.privacy-box > p {
+    margin: 0 0 22px;
+    padding: 16px 18px;
+    background: #f9fafb;
+    border: 1px solid #eef0f3;
+    border-radius: 8px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.privacy-section {
+    margin-top: 22px;
+}
+
+.privacy-section + .privacy-section {
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.privacy-section h4 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.privacy-section p {
+    margin: 0 0 8px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.privacy-section ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+}
+
+.privacy-section li {
+    margin-bottom: 6px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.privacy-confirm {
+    margin: 16px 0 0;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.agree-modal-footer {
+    padding: 0 38px 24px;
+    background: #ffffff;
+}
+
+.modal-agree-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modal-agree-check input {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    cursor: pointer;
+    accent-color: #4f5f3a;
+    flex-shrink: 0;
+}
+
+.modal-agree-check strong {
+    color: #4f5f3a;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.privacy-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.privacy-box::-webkit-scrollbar-track {
+    background: #f3f4f6;
+}
+
+.privacy-box::-webkit-scrollbar-thumb {
+    background: #c7cbd1;
+    border-radius: 999px;
+}
+
+.privacy-box::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
