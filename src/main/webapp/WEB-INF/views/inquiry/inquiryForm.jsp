@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/inquiry.css">
+        <link rel="stylesheet" href="/css/inquiry/inquiry.css/">
 
         <script>
             function send(f) {

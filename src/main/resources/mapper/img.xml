@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.recipe.dao.ImgDAO">
+
+    <insert id="img_insert" parameterType="img"
+            useGeneratedKeys="true" keyProperty="img_id">
+        insert into img (image_list,inquiry_id
+        ) values ( #{image_list}, #{inquiry_id} )
+    </insert>
+
+    <select id="img_select" parameterType="int" resultType="img">
+        select * from img
+            where img_id = #{img_id}
+    </select>
+
+    <select id="img_select_inquiry" parameterType="int" resultType="img">
+        select * from img
+        where inquiry_id = #{inquiry_id}
+        order by img_id asc
+    </select>
+
+    <insert id="img_insert_review" parameterType="img"
+            useGeneratedKeys="true" keyProperty="img_id">
+        insert into img (image_list, review_id)
+        values ( #{image_list}, #{review_id} )
+    </insert>            
+
+    <delete id="img_delete">
+        delete from img 
+        where review_id = #{review_id}
+    </delete>
+
+    <update id="img_update" parameterType="img" >
+        update img set  image_list = #{image_list}
+        where img_id = #{img_id}
+    </update>
+
+</mapper>
