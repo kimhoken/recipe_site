@@ -21,7 +21,7 @@ public class MailSendService {
     private final JavaMailSender javaMailSender;
     private int authNumber;    
     private String token;
-    private final String siteurl = "http://3.36.121.202/resetpwd.do?token=";
+    private final String siteurl = "http://localhost:5000/resetpwd.do?token=";
     
     public MailSendService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
