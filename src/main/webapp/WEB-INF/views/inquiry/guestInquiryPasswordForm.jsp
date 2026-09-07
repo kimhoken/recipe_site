@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/guestInquiryPasswordForm.css">
+        <link rel="stylesheet" href="/css/inquiry/guestInquiryPasswordForm.css">
 
         <script>
             function checkPassword(f) {

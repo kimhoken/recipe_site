@@ -1,0 +1,153 @@
+html,
+body{
+    margin:0;
+    padding:0;
+    background:#f8f6ef;
+}
+
+.inquiry-page{
+    background:#f8f6ef;
+    padding:40px 0 60px;
+    min-height:100vh;
+}
+
+.inquiry-form{
+    width:900px;
+    margin:0 auto;
+    background:#fffdf7;
+    padding:34px 44px;
+    border-radius:20px;
+    box-shadow:0 12px 28px rgba(79,95,58,0.1);
+    border:1px solid #e6e1d3;
+}
+
+.inquiry-title-box{
+    padding-bottom:17px;
+    border-bottom:1px solid #ebe7da;
+}
+
+.inquiry-label{
+    display:inline-block;
+    padding:5px 13px;
+    border-radius:999px;
+    background:#e8ebdd;
+    color:#6f8157;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.inquiry-title-box h2{
+    margin:0 0 8px;
+    font-size:32px;
+    font-weight:800;
+    color:#4f5f3a;
+}
+
+.inquiry-title-box p{
+    margin:0;
+    color:#7b806f;
+    font-size:14px;
+}
+
+.inquiry-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:18px;
+}
+
+.inquiry-table tr{
+    border-bottom:1px solid #ebe7da;
+}
+
+.inquiry-table th{
+    width:140px;
+    padding:16px 0;
+    text-align:left;
+    color:#5f6f49;
+    font-size:14px;
+}
+
+.inquiry-table td{
+    padding:16px 0;
+    color:#3f4638;
+    line-height:1.8;
+}
+
+.inquiry-table td.content-box{
+    white-space:pre-wrap;
+    text-align:left;
+    vertical-align:top;
+    padding-top:16px;
+}
+
+.image-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.image-list img{
+    width:180px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.status-complete{
+    color:#4f8a3f;
+    font-weight:700;
+}
+
+.status-wait{
+    color:#b88b36;
+    font-weight:700;
+}
+
+.answer-box{
+    background:#f7f8f2;
+    border:1px solid #dfe5d5;
+    border-radius:10px;
+    padding:18px;
+    line-height:1.8;
+}
+
+.btn-area{
+    text-align:center;
+    margin-top:28px;
+}
+
+.cancel-btn{
+    width:150px;
+    height:46px;
+    border-radius:999px;
+    border:1px solid #ddd7c9;
+    background:#f7f4eb;
+    color:#6b665a;
+    font-weight:700;
+    cursor:pointer;
+}
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 24px;
+    right: 34px;
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    cursor: pointer;
+}
