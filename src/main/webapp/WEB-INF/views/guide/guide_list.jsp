@@ -10,9 +10,8 @@
             <title>키친가이드</title>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/search_bar.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/guide.css">
-            <link rel="stylesheet" href="/css/chatbot.css" />
-            <script src="/js/chatbot.js"></script>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/guide/guide.css">
+          
             <script>
                 // 키친가이드 들어오면 자동 '전체보기' 
                 // window.onload = function() {
@@ -100,8 +99,7 @@
 
             <!-- footer 회사 정보 jsp 파일 include -->
             <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-            <!-- 챗봇 -->
-            <jsp:include page="/WEB-INF/views/chatbot/chatbot_main.jsp" />
+         
 
         </body>
 

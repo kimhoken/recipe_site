@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.recipe.dao.GuideDAO">
+
+<!--  해당 탭 클릭 시 보여지는 목록 전체 조회(단, 전체보기가 가장 먼저 실행됨) -->
+  <select id="guideTab" parameterType="map" resultType="GuideDTO">
+    SELECT * FROM guide
+    <where>
+        <if test="tab != null and tab != '' and tab != 'all'">
+            tab = #{tab}
+        </if>
+    </where>
+</select>
+
+<!-- 가이드 상세 단건 조회 -->
+    <select id="Detail" parameterType="int" resultType="GuideDTO">
+    SELECT guide_id, title, sub_title, image, tab 
+    FROM guide 
+    WHERE guide_id = #{guide_id}
+    </select>
+<!-- 가이드 상세 단계별 리스트 조회 -->
+    <select id="stepList" parameterType="int" resultType="GuideStepDTO">
+        SELECT step_id, guide_id, step_num, step_image, step_content
+        FROM guide_step
+        WHERE guide_id = #{guide_id}
+        ORDER BY step_num ASC
+    </select>
+
+
+</mapper>
