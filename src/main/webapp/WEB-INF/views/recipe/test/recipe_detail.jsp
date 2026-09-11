@@ -10,6 +10,11 @@
 </head>
 
 <style>
+    .thumbImage {
+        height: 100px;
+        width: 100px;
+    }
+    
     .cook-order {
         display: flex;
         flex-wrap: wrap;
@@ -48,14 +53,19 @@
 
 <body>
     <h1>레시피 상세 정보</h1>
+
+    <input type="button" value="목록으로" onclick="location.href='/recipe_list.do'"/>
+    <input type="button" value="수정" onclick="location.href='/recipe_update.do?recipe_id=${recipe.recipe_id}'"/>
+    <input type="button" value="삭제" onclick="location.href='/recipe_delete.do?recipe_id=${recipe.recipe_id}'"/>
+
     <table border="1">
+        <tr>
+            <th>썸네일</th>
+            <td><img class="thumbImage" src="/upload/${recipe.thumbnail}" width="100px"/></td>
+        </tr>
         <tr>
             <th>제목</th>
             <td>${recipe.title}</td>
-        </tr>
-        <tr>
-            <th>썸네일</th>
-            <td><img src="/upload/${recipe.thumbnail}" width="100px"/></td>
         </tr>
         <tr>
             <th>조리시간</th>
@@ -109,9 +119,5 @@
         </c:forEach>
         </div>
     </div>
-
-    <input type="button" value="목록으로" onclick="location.href='/recipe_list.do'"/>
-    <input type="button" value="수정" onclick="location.href='/recipe_update.do?recipe_id=${recipe.recipe_id}'"/>
-    <input type="button" value="삭제" onclick="location.href='/recipe_delete.do?recipe_id=${recipe.recipe_id}'"/>
 </body>
 </html>

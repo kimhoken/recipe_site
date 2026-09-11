@@ -9,8 +9,11 @@
     <title>오늘 뭐 먹지? - 레시피 목록</title>
 </head>
 <body>
+    <h1>레시피 목록</h1>
+
     <input type="button" value="메인으로" onclick="location.href='/'"/>
     <input type="button" value="레시피 등록" onclick="location.href='recipe_insert.do'"/>
+    
     <table border="1">
         <thead>
             <tr>

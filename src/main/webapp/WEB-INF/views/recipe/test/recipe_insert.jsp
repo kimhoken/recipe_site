@@ -178,15 +178,14 @@
 
 </head>
 <body>
+    <h1>레시피 등록</h1>
+
     <form method="post" action="recipe_insert_pro.do" enctype="multipart/form-data" onsubmit="return addRecipe()">
-        <h1>레시피 등록</h1>
+        <input type="submit" value="등록"/></td>
+        <input type="button" value="취소" onclick="history.back()"/>
+
         <table border="1">
-            <tr>
-                <th>제목</th>
-                <td>
-                    <input id="title" name="title"/>
-                </td>
-            </tr>
+
             <tr>
                 <th>썸네일</th>
                 <td>
@@ -201,6 +200,14 @@
                     </div>
                 </td>
             </tr>
+
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input id="title" name="title"/>
+                </td>
+            </tr>
+
             <tr>
                 <th>조리시간</th>
                 <td>
@@ -241,12 +248,6 @@
             +
         </div> -->
 
-        <table>
-            <tr>
-                <td><input type="submit" value="등록"/></td>
-                <td><input type="button" value="취소" onclick="history.back()"/></td>
-            </tr>
-        </table>
     </form>
 
 </body>
