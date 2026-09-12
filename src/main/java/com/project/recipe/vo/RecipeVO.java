@@ -30,4 +30,7 @@ public class RecipeVO {
     // cook_order 테이블
     private List<MultipartFile> orderImageList;
     private List<String> orderDescList;
+
+    // member 테이블
+    private String nickname;
 }

@@ -12,8 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="getRecipeListByPage" resultType="recipe">
-        SELECT *
-        FROM recipe
+        SELECT r.*, m.nickname
+        FROM recipe r
+        JOIN member m ON m.member_id = r.member_id
         ORDER BY created_date DESC
         LIMIT #{size} OFFSET #{offset}
     </select>
