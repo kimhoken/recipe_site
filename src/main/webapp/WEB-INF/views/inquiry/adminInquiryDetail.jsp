@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/adminInquiryDetail.css">
+    <link rel="stylesheet" href="/css/inquiry/adminInquiryDetail.css">
 
     <script>
         function sendAnswer(f) {
