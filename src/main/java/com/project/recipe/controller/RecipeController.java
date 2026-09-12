@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.recipe.common.Fileupload;
+import com.project.recipe.common.Paging;
 import com.project.recipe.dao.RecipeDAO;
 import com.project.recipe.vo.CookOrderVO;
 import com.project.recipe.vo.RecipeVO;
@@ -27,12 +29,17 @@ public class RecipeController {
     
     private final RecipeDAO recipeDAO;
 
-
     // 레시피 목록 페이지
     @GetMapping(value="/recipe_list.do")
-    public String recipeList(Model model) {
+    public String recipeList(Model model,
+                             @RequestParam(defaultValue = "1") int page) {
+
+        int pageSize = 10;
+
+        Paging paging = new Paging(page, pageSize, recipeDAO.getRecipeTotalCount());
         
-        model.addAttribute("recipeList", recipeDAO.getRecipeList());
+        model.addAttribute("recipeList", recipeDAO.getRecipeListByPage(paging.getSize(), paging.getOffset()));
+        model.addAttribute("paging", paging);
 
         return "recipe/test/recipe_list";
     }

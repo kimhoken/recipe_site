@@ -4,10 +4,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.recipe.dao.RecipeDAO">
-    <select id="getRecipeList">
+
+    <select id="getRecipeList" resultType="recipe">
         SELECT *
         FROM recipe
         ORDER BY created_date DESC
+    </select>
+
+    <select id="getRecipeListByPage" resultType="recipe">
+        SELECT *
+        FROM recipe
+        ORDER BY created_date DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="getRecipeTotalCount" resultType="int">
+        SELECT count(*) 
+        FROM recipe
     </select>
 
     <select id="getRecipeById" parameterType="int" resultType="recipe">
