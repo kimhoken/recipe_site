@@ -46,8 +46,29 @@ public class Paging {
 
         offset = (page-1) * size;
         
-        startpage = ((page-1) / blocksize )* blocksize +1;
-        endpage = Math.min(startpage+blocksize -1,totalpage);
+        // 주석 처리(sub3) - 53 ~ 71로 대체
+        // startpage = ((page-1) / blocksize )* blocksize +1;
+        // endpage = Math.min(startpage+blocksize -1,totalpage);
+
+        //##############################################################
+        // 페이지네이션 현재 페이지가 중앙에 오게(sub3)
+        int half = blocksize / 2;
+
+        startpage = page - half;
+        endpage = page + half;
+
+        // 시작 페이지가 1보다 작으면 보정
+        if (startpage < 1) {
+            startpage = 1;
+            endpage = Math.min(blocksize, totalpage);
+        }
+
+        // 마지막 페이지가 전체 페이지보다 크면 보정
+        if (endpage > totalpage) {
+            endpage = totalpage;
+            startpage = Math.max(1, endpage - blocksize + 1);
+        }
+        //##############################################################
 
         prev = startpage > 1;
         next = endpage < totalpage;  

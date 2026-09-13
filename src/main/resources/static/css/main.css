@@ -214,22 +214,26 @@ header {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    gap: 40px;
+    gap: 30px;
     padding: 0 80px;
 }
 
 .nav-bar li {
-    padding: 14px 0;
+    position: relative;
+}
+
+.nav-bar li a {
+    display: block;
+    padding: 14px 10px;
     font-weight: 700;
     font-size: 15px;
     color: #334155;
     cursor: pointer;
-    position: relative;
     transition: color 0.2s ease;
 }
 
-.nav-bar li.active,
-.nav-bar li:hover {
+.nav-bar li.active a,
+.nav-bar li:hover a{
     color: #5a7e4d;
 }
 
