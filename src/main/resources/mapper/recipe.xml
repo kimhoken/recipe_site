@@ -15,7 +15,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT r.*, m.nickname
         FROM recipe r
         JOIN member m ON m.member_id = r.member_id
-        ORDER BY created_date DESC
+        <choose>
+            <when test="sort eq 'TITLE'">
+                ORDER BY r.title ASC
+            </when>
+            <when test="sort eq 'VIEW'">
+                ORDER BY r.view_count DESC
+            </when>
+            <when test="sort eq 'LIKE'">
+                ORDER BY r.like_count DESC
+            </when>
+            <when test="sort eq 'RECOMMEND'">
+                ORDER BY r.recommend DESC
+            </when>
+            <otherwise>
+                ORDER BY r.like_count DESC
+            </otherwise>
+        </choose>
         LIMIT #{size} OFFSET #{offset}
     </select>
 

@@ -7,7 +7,7 @@ import com.project.recipe.vo.RecipeVO;
 
 public interface RecipeDAO {
     List<RecipeVO> getRecipeList(); // 레시피 목록 조회
-    List<RecipeVO> getRecipeListByPage(int size, int offset); // 레시피 목록 조회(페이징)
+    List<RecipeVO> getRecipeListByPage(String sort, int size, int offset); // 레시피 목록 조회(페이징)
 
     int getRecipeTotalCount(); // 레시피 개수
 

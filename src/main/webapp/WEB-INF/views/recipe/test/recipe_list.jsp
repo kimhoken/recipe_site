@@ -20,6 +20,9 @@
         }
     </script>
     <style>
+        .control-bar {
+            display: flex;
+        }
         .pagination {
             display: flex;
             gap: 5px;
@@ -61,40 +64,53 @@
     <input type="button" value="메인으로" onclick="location.href='/'"/>
     <input type="button" value="레시피 등록" onclick="location.href='recipe_insert.do'"/>
 
-    <div class="pagination">
-        <c:choose>
-            <c:when test="${paging.prev}">
-                <a href="/recipe_list.do?page=${paging.startpage - 1}">&lt;</a>
-            </c:when>
-            <c:otherwise>
-                <span class="disabled">&lt;</span>
-            </c:otherwise>
-        </c:choose>
-
-        <c:forEach var="page" begin="${paging.startpage}" end="${paging.endpage}" step="1">
+    <div class="control-bar">
+        <div class="pagination">
             <c:choose>
-                <c:when test="${page eq paging.page}">
-                    <span class="current">${page}</span>
+                <c:when test="${paging.prev}">
+                    <a href="/recipe_list.do?page=${paging.startpage - 1}">&lt;</a>
                 </c:when>
-
                 <c:otherwise>
-                    <a href="/recipe_list.do?page=${page}">${page}</a>
+                    <span class="disabled">&lt;</span>
                 </c:otherwise>
             </c:choose>
 
-        </c:forEach>
+            <c:forEach var="page" begin="${paging.startpage}" end="${paging.endpage}" step="1">
+                <c:choose>
+                    <c:when test="${page eq paging.page}">
+                        <span class="current">${page}</span>
+                    </c:when>
 
-        <c:choose>
-            <c:when test="${paging.next}">
-                <a href="/recipe_list.do?page=${paging.endpage + 1}">&gt;</a>
-            </c:when>
-            <c:otherwise>
-                <span class="disabled">&gt;</span>
-            </c:otherwise>
-        </c:choose>
+                    <c:otherwise>
+                        <a href="/recipe_list.do?page=${page}">${page}</a>
+                    </c:otherwise>
+                </c:choose>
 
-        <input type="button" value="🔍" onclick="pageTo()"/>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${paging.next}">
+                    <a href="/recipe_list.do?page=${paging.endpage + 1}">&gt;</a>
+                </c:when>
+                <c:otherwise>
+                    <span class="disabled">&gt;</span>
+                </c:otherwise>
+            </c:choose>
+
+            <input type="button" value="🔍" onclick="pageTo()"/>
+        </div>
+
+        <div class="sort">
+            <select name="sort">
+                <option value="LATEST">최신순</option>
+                <option value="TITLE">제목순</option>
+                <option value="VIEW">조회순</option>
+                <option value="LIKE">좋아요순</option>
+                <option value="RECOMMEND">추천순</option>
+            </select>
+        </div>
     </div>
+
     <table border="1">
         <thead>
             <tr>

@@ -32,13 +32,14 @@ public class RecipeController {
     // 레시피 목록 페이지
     @GetMapping(value="/recipe_list.do")
     public String recipeList(Model model,
-                             @RequestParam(defaultValue = "1") int page) {
+                             @RequestParam(defaultValue = "1") int page,
+                             @RequestParam(defaultValue = "LATEST") String sort) {
 
         int pageSize = 10;
 
         Paging paging = new Paging(page, pageSize, recipeDAO.getRecipeTotalCount());
         
-        model.addAttribute("recipeList", recipeDAO.getRecipeListByPage(paging.getSize(), paging.getOffset()));
+        model.addAttribute("recipeList", recipeDAO.getRecipeListByPage(sort, paging.getSize(), paging.getOffset()));
         model.addAttribute("paging", paging);
 
         return "recipe/test/recipe_list";
