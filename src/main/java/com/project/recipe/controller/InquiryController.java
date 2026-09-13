@@ -119,7 +119,8 @@ public class InquiryController {
 
                 ImgVO img = new ImgVO();
                 img.setImage_list(filename);
-                img.setInquiry_id(vo.getInquiry_id());
+                img.setTarget_id(vo.getInquiry_id());
+                img.setTarget_type("INQUIRY");
 
                 imgDao.img_insert(img);
             }
@@ -192,7 +193,7 @@ public class InquiryController {
             return "inquiry/guestInquiryPasswordForm";
         }
 
-        List<ImgVO> imgList = imgDao.img_select_inquiry(vo.getInquiry_id());
+        List<ImgVO> imgList = imgDao.img_select_inquiry(vo.getInquiry_id()); // 임시
 
         model.addAttribute("vo", vo);
         model.addAttribute("imgList", imgList);

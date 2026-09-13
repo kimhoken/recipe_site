@@ -165,102 +165,104 @@ public class NoticeController {
 
         if (!fileNames.isEmpty()) {
             ImgVO img = new ImgVO();
-            img.setNotice_id(vo.getNotice_id());
-
+            img.setTarget_id(vo.getNotice_id());
+            img.setTarget_type("NOTICE");
+            
             img.setImage_list(String.join(",", fileNames));
-
+            
             noticeDao.notice_img_insert(img);
         }
-
+        
         return "redirect:notice.do";
     }
-
+    
     // 공지사항 수정 페이지 이동
     @GetMapping("/notice_update.do")
     public String noticeUpdate_form(int notice_id, Model model) {
-
+        
         MemberVO user = (MemberVO) session.getAttribute("user");
-
+        
         if (user == null || !"ADMIN".equals(user.getRole())) {
             return "redirect:/notice.do";
         }
-
+        
         NoticeVO vo = noticeDao.noticeView(notice_id);
         ImgVO img = noticeDao.notice_img_select(notice_id);
-
+        
         model.addAttribute("notice", vo);
         model.addAttribute("img", img);
-
+        
         return "notice/update_form";
     }
-
+    
     // 공지사항 및 이미지 수정
     @PostMapping("/notice_update.do")
     public String noticeUpdate_fin(
-            NoticeVO vo,
-
-            @RequestParam(value = "images", required = false) List<MultipartFile> images,
-
-            @RequestParam(value = "delete_image", required = false) List<String> delete_image
+        NoticeVO vo,
+        
+        @RequestParam(value = "images", required = false) List<MultipartFile> images,
+        
+        @RequestParam(value = "delete_image", required = false) List<String> delete_image
     ) throws Exception {
-
+        
         MemberVO user = (MemberVO) session.getAttribute("user");
-
+        
         if (user == null || !"ADMIN".equals(user.getRole())) {
             return "redirect:/notice.do";
         }
-
+        
         noticeDao.notice_update(vo);
-
+        
         File dir = new File(savePath);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
+        
         ImgVO oldImg = noticeDao.notice_img_select(vo.getNotice_id());
-
+        
         List<String> fileNames = new ArrayList<>();
-
+        
         if (oldImg != null
-                && oldImg.getImage_list() != null
-                && !oldImg.getImage_list().trim().isEmpty()) {
-
-            // 콤마 기준으로 분리
-            fileNames.addAll(Arrays.asList(oldImg.getImage_list().split(",")));
-        }
-
-        // X 누른 기존 이미지 제거
-        if (delete_image != null && !delete_image.isEmpty()) {
-            fileNames.removeAll(delete_image);
-        }
-
-        // 새로 선택한 이미지 저장
-        if (images != null && !images.isEmpty()) {
-            for (MultipartFile image : images) {
-
-                if (image == null || image.isEmpty()) {
-                    continue;
-                }
-
-                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-                File saveFile = new File(savePath, filename);
-
-                if (saveFile.exists()) {
-                    filename = System.currentTimeMillis() + "_" + filename;
-                    saveFile = new File(savePath, filename);
-                }
-
-                image.transferTo(saveFile);
-                fileNames.add(filename);
+            && oldImg.getImage_list() != null
+            && !oldImg.getImage_list().trim().isEmpty()) {
+                
+                // 콤마 기준으로 분리
+                fileNames.addAll(Arrays.asList(oldImg.getImage_list().split(",")));
             }
-        }
-
-        if (fileNames.isEmpty()) {
-            noticeDao.notice_img_delete(vo.getNotice_id());
-
-        } else {
-            ImgVO img = new ImgVO();
-            img.setNotice_id(vo.getNotice_id());
+            
+            // X 누른 기존 이미지 제거
+            if (delete_image != null && !delete_image.isEmpty()) {
+                fileNames.removeAll(delete_image);
+            }
+            
+            // 새로 선택한 이미지 저장
+            if (images != null && !images.isEmpty()) {
+                for (MultipartFile image : images) {
+                    
+                    if (image == null || image.isEmpty()) {
+                        continue;
+                    }
+                    
+                    String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                    File saveFile = new File(savePath, filename);
+                    
+                    if (saveFile.exists()) {
+                        filename = System.currentTimeMillis() + "_" + filename;
+                        saveFile = new File(savePath, filename);
+                    }
+                    
+                    image.transferTo(saveFile);
+                    fileNames.add(filename);
+                }
+            }
+            
+            if (fileNames.isEmpty()) {
+                noticeDao.notice_img_delete(vo.getNotice_id());
+                
+            } else {
+                ImgVO img = new ImgVO();
+                img.setTarget_id(vo.getNotice_id());
+                img.setTarget_type("NOTICE"); // 테스트중
 
             // 기존에 남은 이미지와 새 이미지를 다시 쉼표로 연결
             img.setImage_list(String.join(",", fileNames));

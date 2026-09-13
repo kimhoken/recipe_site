@@ -5,35 +5,36 @@
 
     <insert id="img_insert" parameterType="img"
             useGeneratedKeys="true" keyProperty="img_id">
-        insert into img (image_list,inquiry_id
-        ) values ( #{image_list}, #{inquiry_id} )
+        insert into image (image_list, target_id, target_type
+        ) values ( #{image_list}, #{target_id}, #{target_type} )
     </insert>
 
     <select id="img_select" parameterType="int" resultType="img">
-        select * from img
-            where img_id = #{img_id}
+        select * from image
+            where image_id = #{img_id}
     </select>
 
     <select id="img_select_inquiry" parameterType="int" resultType="img">
-        select * from img
-        where inquiry_id = #{inquiry_id}
-        order by img_id asc
+        select * from image
+        where target_id = #{inquiry_id} 
+            and target_type = "INQUIRY"
+        order by image_id asc
     </select>
 
     <insert id="img_insert_review" parameterType="img"
             useGeneratedKeys="true" keyProperty="img_id">
-        insert into img (image_list, review_id)
+        insert into image (image_list, target_id)
         values ( #{image_list}, #{review_id} )
     </insert>            
 
     <delete id="img_delete">
-        delete from img 
+        delete from image
         where review_id = #{review_id}
     </delete>
 
     <update id="img_update" parameterType="img" >
-        update img set  image_list = #{image_list}
-        where img_id = #{img_id}
+        update image set  image_list = #{image_list}
+        where image_id = #{image_id}
     </update>
 
 </mapper>

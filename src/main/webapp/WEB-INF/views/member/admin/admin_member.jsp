@@ -150,7 +150,7 @@
         function closeMemberDetail() {
             document.querySelector(".ma-detail-panel").classList.remove("active");
         }
-
+        
     </script>
 </head>
 
