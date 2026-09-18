@@ -8,15 +8,42 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>오늘 뭐 먹지? - 레시피 목록</title>
     <script>
-        function pageTo() {
-            let page = prompt("이동할 페이지 번호를 입력하세요.");
+        // function pageTo() {
+        //     let page = prompt("이동할 페이지 번호를 입력하세요.");
 
-            if (isNaN(page)) {
-                alert("숫자만 입력해주세요.");
+        //     if (isNaN(page)) {
+        //         alert("숫자만 입력해주세요.");
+        //         return;
+        //     }
+
+        //     location.href = "/recipe_list.do?page=" + page;
+        // }
+
+        window.onload = () => {
+            let keyword = document.getElementById("keyword");
+            keyword.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    search();
+                }
+            })
+        }
+
+        function sortBy(select) {
+            location.href = "/recipe_list.do" + (select.value == 'LATEST' ? '' : '?sort=' + select.value);
+        }
+
+        function search() {
+            let sort = "${sort}";
+            let searchType = document.getElementById("searchType").value;
+            let keyword = document.getElementById("keyword");
+
+            if (!keyword.value.trim()) {
+                alert("검색어를 입력해주세요.");
+                keyword.focus();
                 return;
             }
 
-            location.href = "/recipe_list.do?page=" + page;
+            location.href = "/recipe_list.do?searchType=" + searchType + "&keyword=" + encodeURIComponent(keyword.value.trim());
         }
     </script>
     <style>
@@ -66,9 +93,16 @@
 
     <div class="control-bar">
         <div class="pagination">
+            <c:set var="sortParam" value="${sort eq 'LATEST' ? '' : 'sort='.concat(sort).concat('&')}"/>
+
+            <c:if test="${not empty keyword}">
+                <c:set var="searchParam"
+                    value="searchType=${searchType}&keyword=${keyword}&"/>
+            </c:if>
+            
             <c:choose>
                 <c:when test="${paging.prev}">
-                    <a href="/recipe_list.do?page=${paging.startpage - 1}">&lt;</a>
+                    <a href="/recipe_list.do?${sortParam}${searchParam}page=${paging.startpage - 1}">&lt;</a>
                 </c:when>
                 <c:otherwise>
                     <span class="disabled">&lt;</span>
@@ -82,35 +116,48 @@
                     </c:when>
 
                     <c:otherwise>
-                        <a href="/recipe_list.do?page=${page}">${page}</a>
+                        <a href="/recipe_list.do?${sortParam}${searchParam}page=${page}">${page}</a>
                     </c:otherwise>
                 </c:choose>
-
             </c:forEach>
 
             <c:choose>
                 <c:when test="${paging.next}">
-                    <a href="/recipe_list.do?page=${paging.endpage + 1}">&gt;</a>
+                    <a href="/recipe_list.do?${sortParam}${searchParam}page=${paging.endpage + 1}">&gt;</a>
                 </c:when>
                 <c:otherwise>
                     <span class="disabled">&gt;</span>
                 </c:otherwise>
             </c:choose>
 
-            <input type="button" value="🔍" onclick="pageTo()"/>
+            <!-- <input type="button" value="🔍" onclick="pageTo()"/> -->
         </div>
 
         <div class="sort">
-            <select name="sort">
-                <option value="LATEST">최신순</option>
-                <option value="TITLE">제목순</option>
-                <option value="VIEW">조회순</option>
-                <option value="LIKE">좋아요순</option>
-                <option value="RECOMMEND">추천순</option>
+            <select name="sort" onchange="sortBy(this)">
+                <option value="LATEST" ${sort eq 'LATEST' ? 'selected' : ''}>최신순</option>
+                <option value="TITLE"  ${sort eq 'TITLE' ? 'selected' : ''}>제목순</option>
+                <option value="VIEW"  ${sort eq 'VIEW' ? 'selected' : ''}>조회순</option>
+                <option value="LIKE"  ${sort eq 'LIKE' ? 'selected' : ''}>좋아요순</option>
+                <option value="RECOMMEND"  ${sort eq 'RECOMMEND' ? 'selected' : ''}>추천순</option>
             </select>
         </div>
     </div>
 
+    <div class="search-bar">
+        <form action="/recipe_list.do" method="get">
+            <input type="hidden" name="sort" value="${sort}">
+
+            <select name="searchType">
+                <option value="TITLE" ${searchType eq 'TITLE' ? 'selected' : ''}>제목</option>
+                <option value="NICKNAME" ${searchType eq 'NICKNAME' ? 'selected' : ''}>닉네임</option>
+            </select>
+
+            <input name="keyword" id="keyword" value="${keyword}"/>
+            <input type="submit" value="검색"/>
+        </form>
+    </div>
+    
     <table border="1">
         <thead>
             <tr>
@@ -121,7 +168,7 @@
                 <th>조회수</th>
                 <th>좋아요수</th>
                 <th>작성자ID</th>
-                <th>작성자 닉네임</th>
+                <th>닉네임</th>
                 <th>상태</th>
                 <th>작성일</th>
                 <th>수정일</th>
@@ -155,3 +202,4 @@
     </table>
 </body>
 </html>
+

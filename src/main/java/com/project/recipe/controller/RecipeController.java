@@ -31,16 +31,19 @@ public class RecipeController {
 
     // 레시피 목록 페이지
     @GetMapping(value="/recipe_list.do")
-    public String recipeList(Model model,
+    public String recipeList(Model model, String searchType, String keyword,
                              @RequestParam(defaultValue = "1") int page,
                              @RequestParam(defaultValue = "LATEST") String sort) {
 
         int pageSize = 10;
 
-        Paging paging = new Paging(page, pageSize, recipeDAO.getRecipeTotalCount());
+        Paging paging = new Paging(page, pageSize, recipeDAO.getRecipeTotalCount(searchType, keyword));
         
-        model.addAttribute("recipeList", recipeDAO.getRecipeListByPage(sort, paging.getSize(), paging.getOffset()));
+        model.addAttribute("recipeList", recipeDAO.getRecipeListByPage(sort, paging.getSize(), paging.getOffset(), searchType, keyword));
         model.addAttribute("paging", paging);
+        model.addAttribute("sort", sort);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
 
         return "recipe/test/recipe_list";
     }
@@ -65,11 +68,11 @@ public class RecipeController {
     // 레시피 등록 
     @Transactional
     @PostMapping(value="/recipe_insert_pro.do")
-    public String insertRecipePro(Model model, RecipeVO recipeVO, MultipartFile thumbnailFile) throws Exception {
+    public String insertRecipePro(Model model, RecipeVO recipeVO, MultipartFile thumbFile) throws Exception {
         recipeVO.setMember_id(1);
 
-        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            recipeVO.setThumbnail(fileupload.saveFile(thumbnailFile, ""));
+        if (thumbFile != null && !thumbFile.isEmpty()) {
+            recipeVO.setThumbnail(fileupload.saveFile(thumbFile, ""));
         }
 
         recipeDAO.addRecipe(recipeVO);

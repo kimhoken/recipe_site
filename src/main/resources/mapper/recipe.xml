@@ -15,6 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT r.*, m.nickname
         FROM recipe r
         JOIN member m ON m.member_id = r.member_id
+        <where>
+            <choose>
+                <when test="searchType eq 'TITLE'">
+                    r.title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="searchType eq 'NICKNAME'">
+                    m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+            </choose>
+        </where>
         <choose>
             <when test="sort eq 'TITLE'">
                 ORDER BY r.title ASC
@@ -29,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 ORDER BY r.recommend DESC
             </when>
             <otherwise>
-                ORDER BY r.like_count DESC
+                ORDER BY r.created_date DESC
             </otherwise>
         </choose>
         LIMIT #{size} OFFSET #{offset}
@@ -37,7 +47,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="getRecipeTotalCount" resultType="int">
         SELECT count(*) 
-        FROM recipe
+        FROM recipe r
+        JOIN member m ON m.member_id = r.member_id
+        <where>
+            <choose>
+                <when test="searchType eq 'TITLE'">
+                    r.title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="searchType eq 'NICKNAME'">
+                    m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+            </choose>
+        </where>
     </select>
 
     <select id="getRecipeById" parameterType="int" resultType="recipe">
