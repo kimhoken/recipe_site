@@ -9,6 +9,7 @@
     <head>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/chatbot/chatbot.css">
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -321,7 +322,8 @@
     <!-- footer 회사 정보 jsp 파일 include -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-    
+    <!-- AI 챗봇 -->
+    <jsp:include page="/WEB-INF/views/chatbot/chatbot.jsp"/>
 
     </body>
 </html>
