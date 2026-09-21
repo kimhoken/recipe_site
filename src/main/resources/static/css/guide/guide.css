@@ -358,3 +358,27 @@
     background-color: #f5f2ef;
     color: #614f42;
 }
+
+/* 가이드 추가 버튼 영역 */
+.guide-add-area {
+    width: 1200px;
+    margin: -40px auto 80px;
+    text-align: right;
+}
+
+/* 가이드 추가 버튼 */
+.guide-add-btn {
+    display: inline-block;
+    padding: 10px 20px;
+
+    background: #614f42;
+    color: white;
+
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.guide-add-btn:hover {
+    background: #8e7b6e;
+}

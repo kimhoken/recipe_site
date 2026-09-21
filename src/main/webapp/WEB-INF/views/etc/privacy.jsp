@@ -4,7 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/policy.css">
+    <link rel="stylesheet" href="/css/etc/policy.css">
 </head>
 
 <body>
@@ -131,7 +131,7 @@
             </tr>
             <tr>
                 <th>대표전화</th>
-                <td>1833-1234</td>
+                <td>1234-5678</td>
             </tr>
             <tr>
                 <th>팩스</th>

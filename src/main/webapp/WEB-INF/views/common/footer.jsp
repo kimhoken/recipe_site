@@ -16,7 +16,7 @@
             <div class="cs-section">
                 <h3>고객센터</h3>
                 <div class="cs-buttons">
-                    <div class="cs-btn" >📞 1833-8307</div>
+                    <a href="tel:12345678" class="cs-btn">📞 1234-5678</a>
                     <div class="cs-btn" onclick="location.href='/inquiry'">💬 1:1문의하기</div>
                 </div>
                 <div class="hours-info">
@@ -50,7 +50,7 @@
                     </p>
                     <p>
                         <span>통신판매업 신고 : 제 2015-경기성남-1940 호</span>
-                        <span>전화 : 1833-1234</span>
+                        <span>전화 : 1234-5678</span>
                         <span>팩스 : 011-1111-1111</span>
                         <span>광고/제휴 문의: kh@culture.net</span>
                     </p>
