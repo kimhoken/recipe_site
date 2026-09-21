@@ -17,7 +17,7 @@ public class CommunityVO {
     private int community_id;
     private int member_id;
     private int recipe_id;
-    private String target_type;
+    private String community_type;
     private String title;
     private String content;
     private int view_count;

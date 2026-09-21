@@ -9,7 +9,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             resultType="community">
         select * 
         from community
+        where community_type != "NOTICE"
     </select>
 
+    <select id="noticeList"
+            resultType="community">
+        select *
+        from community    
+        where community_type = "NOTICE"
+    </select>
 
 </mapper>
