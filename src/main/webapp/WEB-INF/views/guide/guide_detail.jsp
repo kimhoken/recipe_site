@@ -39,7 +39,7 @@
 
                 <div class="detail-img-box">
 
-                    <img src="${pageContext.request.contextPath}/guide_img/${guide.image}" alt="상세/가이드이미지">
+                    <img src="${pageContext.request.contextPath}/upload/guide/${guide.image}" alt="상세/가이드이미지">
 
                 </div>
 
@@ -51,38 +51,39 @@
 
                 </div>
 
+                <c:if test="${not empty sessionScope.user and sessionScope.user.role eq 'ADMIN'}">
 
-                <!-- 수정 / 삭제 메뉴 -->
-                <div class="guide-menu-wrap">
+                    <div class="guide-menu-wrap">
 
-                    <button type="button" class="guide-menu-btn" onclick="toggleGuideMenu()">
-                        ☰
-                    </button>
+                        <button type="button" class="guide-menu-btn" onclick="toggleGuideMenu()">
+                            ☰
+                        </button>
 
-                    <div class="guide-menu" id="guideMenu">
+                        <div class="guide-menu" id="guideMenu">
 
-                        <a href="${pageContext.request.contextPath}/guide_update.do?guide_id=${guide.guide_id}">
-                            수정
-                        </a>
+                            <a href="${pageContext.request.contextPath}/guide_update.do?guide_id=${guide.guide_id}">
+                                수정
+                            </a>
 
-                        <form action="${pageContext.request.contextPath}/guide_delete.do" method="post"
-                            onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                            <form action="${pageContext.request.contextPath}/guide_delete.do"
+                                method="post"
+                                onsubmit="return confirm('정말 삭제하시겠습니까?');">
 
-                            <input type="hidden" name="guide_id" value="${guide.guide_id}">
+                                <input type="hidden"
+                                    name="guide_id"
+                                    value="${guide.guide_id}">
 
-                            <button type="submit">
-                                삭제
-                            </button>
+                                <button type="submit">
+                                    삭제
+                                </button>
 
-                        </form>
+                            </form>
 
-                        <a href="${pageContext.request.contextPath}/report/form.do?guide_id=${guide.guide_id}"> 
-                            신고 
-                        </a>
+                        </div>
 
                     </div>
 
-                </div>
+                </c:if>
 
                 <br />
                 <hr class="detail-line">
@@ -108,8 +109,7 @@
 
                                 <div class="step-img-box">
 
-                                    <img src="${pageContext.request.contextPath}/guide_img/${step.step_image}"
-                                        alt="단계별 이미지">
+                                    <img src="${pageContext.request.contextPath}/upload/guide/${step.step_image}" alt="단계별 이미지">
 
                                 </div>
 

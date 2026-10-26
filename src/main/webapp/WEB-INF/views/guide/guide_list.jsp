@@ -41,7 +41,7 @@
                         
                         // 소제목이 null일 때 화면에 'null'이라고 뜨는 걸 방지
                         let subTitle = guide.sub_title ? guide.sub_title : "";                   
-                        let imgPath = "${pageContext.request.contextPath}/guide_img/" + guide.image;
+                        let imgPath = "${pageContext.request.contextPath}/upload/guide/" + guide.image;
 
                         //해당 guide-grid 클릭하면 guide_id로 상세페이지로 이동
                         let cardHtml = "<div class='guide-card-link' onclick=\"location.href='${pageContext.request.contextPath}/guide_detail.do?guide_id=" + guide.guide_id + "'\">" +
@@ -83,19 +83,35 @@
             &nbsp;
 
             <div class="guide-container">
-                <div class="category-tabs">
-                    <button class="tab-btn" id="all" onclick="showTab('all')">전체보기</button>
-                    <button class="tab-btn" id="storage" onclick="showTab('storage')">보관법</button>
-                    <button class="tab-btn" id="trim" onclick="showTab('trim')">손질법</button>
-                    <button class="tab-btn" id="tip" onclick="showTab('tip')">요리꿀팁</button>
-                    <button class="tab-btn" id="etc" onclick="showTab('etc')">기타정보</button>
-                </div>
-            </div>
 
+                <div class="guide-top-area">
+
+                    <div class="category-tabs">
+
+                        <button class="tab-btn" id="all" onclick="showTab('all')">전체보기</button>
+                        <button class="tab-btn" id="storage" onclick="showTab('storage')">보관법</button>
+                        <button class="tab-btn" id="trim" onclick="showTab('trim')">손질법</button>
+                        <button class="tab-btn" id="tip" onclick="showTab('tip')">요리꿀팁</button>
+                        <button class="tab-btn" id="etc" onclick="showTab('etc')">기타정보</button>
+
+                    </div>
+
+                </div>
+
+            </div>
 
             <div class="guide-grid" id="guideGrid">
 
             </div>
+
+            <c:if test="${not empty sessionScope.user and sessionScope.user.role eq 'ADMIN'}">
+                <div class="guide-add-area">
+                    <a href="${pageContext.request.contextPath}/guide_add.do"
+                    class="guide-add-btn">
+                        작성
+                    </a>
+                </div>
+            </c:if>
 
             <!-- footer 회사 정보 jsp 파일 include -->
             <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

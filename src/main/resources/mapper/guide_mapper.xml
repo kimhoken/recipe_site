@@ -28,5 +28,102 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY step_num ASC
     </select>
 
+<!-- 가이드 작성 -->
+    <insert id="guideInsert" parameterType="GuideDTO" useGeneratedKeys="true" keyProperty="guide_id">
+
+        INSERT INTO guide (
+            title,
+            sub_title,
+            image,
+            tab
+        )VALUES (
+            #{title},
+            #{sub_title},
+            #{image},
+            #{tab}
+        )
+
+    </insert>
+
+
+<!-- 가이드 단계 작성 -->
+    <insert id="guideStepInsert" parameterType="GuideStepDTO">
+
+        INSERT INTO guide_step (
+            guide_id,
+            step_num,
+            step_image,
+            step_content
+        )VALUES (
+            #{guide_id},
+            #{step_num},
+            #{step_image},
+            #{step_content}
+        )
+
+    </insert>
+<!-- 가이드 단계 삭제 -->
+    <delete id="guideStepDelete">
+        DELETE FROM guide_step
+        WHERE guide_id = #{guide_id}
+    </delete>
+
+
+<!-- 가이드 삭제 -->
+    <delete id="guideDelete">
+        DELETE FROM guide
+        WHERE guide_id = #{guide_id}
+    </delete>
+<!-- 가이드 수정 -->
+    <update id="guideUpdate" parameterType="GuideDTO">
+        UPDATE guide
+        SET
+            title = #{title},
+            sub_title = #{sub_title},
+            image = #{image},
+            tab = #{tab}
+        WHERE guide_id = #{guide_id}
+    </update>
+
+<!-- 단계 하나 조회 -->
+    <select id="guideStepDetail"
+            parameterType="long"
+            resultType="GuideStepDTO">
+
+        SELECT
+            step_id,
+            guide_id,
+            step_num,
+            step_image,
+            step_content
+        FROM guide_step
+        WHERE step_id = #{step_id}
+
+    </select>
+
+
+<!-- 단계 수정 -->
+    <update id="guideStepUpdate"
+            parameterType="GuideStepDTO">
+
+        UPDATE guide_step
+        SET
+            step_num = #{step_num},
+            step_image = #{step_image},
+            step_content = #{step_content}
+        WHERE step_id = #{step_id}
+
+    </update>
+
+
+<!-- 단계 하나 삭제 -->
+    <delete id="guideStepDeleteOne"
+            parameterType="long">
+
+        DELETE FROM guide_step
+        WHERE step_id = #{step_id}
+
+    </delete>
+
 
 </mapper>

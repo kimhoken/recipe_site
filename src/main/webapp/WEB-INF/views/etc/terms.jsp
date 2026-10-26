@@ -4,7 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/policy.css">
+    <link rel="stylesheet" href="/css/etc/policy.css">
 </head>
 
 <body>
@@ -89,7 +89,7 @@
             대표자 : 장승연<br>
             사업자등록번호 : 111-01-31111<br>
             통신판매업 신고번호 : 제2015-경기성남-1940호<br>
-            대표전화 : 1833-1234<br>
+            대표전화 : 1234-5678<br>
             팩스 : 031-8017-1800<br>
             주소 : 경기도 성남시 분당구 판교로 216길 92, KH타워 22층 2201호 (삼평동, 판교 에이치스퀘어)<br>
             이메일 : kh@culture.net
