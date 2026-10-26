@@ -28,7 +28,7 @@ public class CommunityController {
     private final ImgDAO imgDAO;
     
 
-    // 
+    // 커뮤니티 목록 조회
     @GetMapping ("/list.do")
     public String CommunityPage(Model model){
 
@@ -67,17 +67,26 @@ public class CommunityController {
 
         ImgVO img = new ImgVO();
 
-        communityDAO.communityInsert( com );
-
-        System.out.println( "커뮤니티 ID:" + com.getCommunity_id());
+        communityDAO.communityInsert( com );        
 
         img.setImage_list(filename);
         img.setTarget_id(com.getCommunity_id());  
         img.setTarget_type("COMMUITY");
         imgDAO.img_insert(img);
-
-        System.out.println("일단 지나가요");
+        
         return "redirect:/list.do";
+
+    }
+
+    //커뮤니티 조회 함수
+    @GetMapping ("/community_view")
+    public String communityView( int community_id, Model model ){
+
+        CommunityVO community = communityDAO.communitySelect( community_id);
+
+        model.addAttribute("community", community);
+
+        return "community/community_view";
 
     }
 

@@ -8,5 +8,5 @@ public interface CommunityDAO {
     List<CommunityVO> CheckList();
     List<CommunityVO> noticeList();
     int communityInsert( CommunityVO com );
-
+    CommunityVO communitySelect( int commuity_id );
 }

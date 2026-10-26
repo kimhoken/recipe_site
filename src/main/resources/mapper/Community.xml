@@ -28,4 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     </insert>
 
+    <select id="communitySelect"
+            resultType="community">
+        select *
+        from community
+        where community_id = #{community_id}    
+    </select>
+
 </mapper>
