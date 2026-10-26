@@ -57,7 +57,7 @@
                     <c:if test="${empty sessionScope.user}">
                         <a href="/login.do" class="menu-item" id="login">
                             <span class="menu-icon">
-                                <img src="${pageContext.request.contextPath}/images/login.png">
+                                <img src="${pageContext.request.contextPath}/images/login/login.png">
                             </span>
                             <div>로그인</div>
                         </a>
@@ -65,7 +65,7 @@
                     <c:if test="${!empty sessionScope.user}">
                         <a href="#" class="menu-item" id="login" onClick="logout(); return false;" >
                             <span class="menu-icon">
-                                <img src="${pageContext.request.contextPath}/images/login.png">
+                                <img src="${pageContext.request.contextPath}/images/login/login.png">
                             </span>
                             <div>로그아웃</div>
                         </a>
@@ -74,7 +74,7 @@
                     <c:if test="${empty sessionScope.user}">
                         <a href="/register_form.do" class="menu-item">
                             <span class="menu-icon">
-                                <img src="${pageContext.request.contextPath}/images/login.png">
+                                <img src="${pageContext.request.contextPath}/images/login/login.png">
                             </span>
                             <div>회원가입</div>
                         </a>

@@ -85,7 +85,7 @@
         <section class="login-left">
             <div class="login-copy">
                 <div class="login-copy-icon">
-                    <img src="/images/cooking-pot.png" alt="" />
+                    <img src="/images/login/cooking-pot.png" alt="" />
                 </div>
                 <p class="login-copy-kicker">맛있는 하루의 시작,</p>
                 <h1>오늘 뭐 먹지?</h1>
@@ -145,17 +145,17 @@
 
                     <div class="social-area">
                         <button type="button" class="social-btn" onclick="location.href='/oauth2/authorization/naver'">
-                            <img src="/images/naver.png" alt="" />
+                            <img src="/images/login/naver.png" alt="" />
                             <span>네이버로 로그인</span>
                         </button>
 
                         <button type="button" class="social-btn" onclick="location.href='/oauth2/authorization/kakao'">
-                            <img src="/images/kakao.png" alt="" />
+                            <img src="/images/login/kakao.png" alt="" />
                             <span>카카오로 로그인</span>
                         </button>
 
                         <button type="button" class="social-btn" onclick="location.href='/oauth2/authorization/google'">
-                            <img src="/images/google.png" alt="" />
+                            <img src="/images/login/google.png" alt="" />
                             <span>구글로 로그인</span>
                         </button>
                     </div>

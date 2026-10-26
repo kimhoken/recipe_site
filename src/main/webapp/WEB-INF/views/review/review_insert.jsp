@@ -100,7 +100,7 @@
                         </c:when>
 
                         <c:otherwise>
-                            <img src="/images/no_image.png" alt="이미지 없음" />
+                            <img src="/images/no_file.png" alt="이미지 없음" />
                         </c:otherwise>
 
                     </c:choose>

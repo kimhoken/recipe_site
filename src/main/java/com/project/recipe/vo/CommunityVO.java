@@ -1,8 +1,10 @@
 package com.project.recipe.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +27,7 @@ public class CommunityVO {
 
     private Date created_date;
     private Date update_date;
+
+    private List<MultipartFile> photo; 
 
 }

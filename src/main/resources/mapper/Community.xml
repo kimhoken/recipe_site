@@ -19,4 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where community_type = "NOTICE"
     </select>
 
+    <insert id="communityInsert"
+            useGeneratedKeys="true"
+            keyProperty="community_id">
+        insert into community (
+            member_id, community_type, recipe_id, title, content
+        ) values (#{member_id}, #{community_type}, NULLIF(#{recipe_id},0), #{title}, #{content})
+
+    </insert>
+
 </mapper>
