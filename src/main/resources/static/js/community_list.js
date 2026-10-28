@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
     const rows = Array.from(document.querySelectorAll('.community-post'));
     const filters = document.querySelectorAll('.community-filters button');
     const search = document.getElementById('community-search');

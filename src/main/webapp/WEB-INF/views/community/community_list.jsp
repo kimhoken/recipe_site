@@ -52,6 +52,7 @@
             <div class="community-toolbar">
                 <div class="community-filters" role="group" aria-label="게시글 분류">
                     <button type="button" class="is-active" data-category="ALL" aria-pressed="true">전체</button>
+                    <button type="button" data-category="NOTICE" aria-pressed="false">공지</button>
                     <button type="button" data-category="FREE" aria-pressed="false">자유</button>
                     <button type="button" data-category="QUESTION" aria-pressed="false">질문</button>
                     <button type="button" data-category="REVIEW" aria-pressed="false">후기</button>
@@ -72,6 +73,7 @@
                                 <c:when test="${post.community_type eq 'FREE'}">자유</c:when>
                                 <c:when test="${post.community_type eq 'QUESTION'}">질문</c:when>
                                 <c:when test="${post.community_type eq 'REVIEW'}">후기</c:when>
+                                <c:when test="${post.community_type eq 'NOTICE'}">공지</c:when>
                                 <c:otherwise>일반</c:otherwise>
                             </c:choose>
                         </span>
@@ -93,6 +95,8 @@
 
             <nav class="community-pagination" aria-label="게시글 페이지"></nav>
             <p class="community-sr-only" id="community-result" aria-live="polite"></p>
+          
+
         </main>
     </body>
 </html>

@@ -9,9 +9,10 @@
         ) values ( #{image_list}, #{target_id}, #{target_type} )
     </insert>
 
-    <select id="img_select" parameterType="int" resultType="img">
-        select * from image
-            where image_id = #{img_id}
+    <select id="img_select" resultType="img">
+        select * 
+        from image
+        where target_id = #{target_id} and target_type = #{target_type}
     </select>
 
     <select id="img_select_inquiry" parameterType="int" resultType="img">
@@ -29,12 +30,15 @@
 
     <delete id="img_delete">
         delete from image
-        where review_id = #{review_id}
+        where target_id = #{target_id} 
+        and target_type = #{target_type}
     </delete>
 
     <update id="img_update" parameterType="img" >
         update image set  image_list = #{image_list}
-        where image_id = #{image_id}
+        where target_id = #{target_id}
+        and target_type = #{target_type}
+
     </update>
 
 </mapper>

@@ -9,4 +9,7 @@ public interface CommunityDAO {
     List<CommunityVO> noticeList();
     int communityInsert( CommunityVO com );
     CommunityVO communitySelect( int commuity_id );
+    int communityUpdate( CommunityVO com );
+    int communityDelete( int commuity_id );
 }
+
