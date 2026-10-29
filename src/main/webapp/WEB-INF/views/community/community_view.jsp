@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
@@ -99,6 +99,13 @@
                     </c:if>
                 </div>
             </article>
+
+            <jsp:include page="/WEB-INF/views/comment/comment.jsp">
+                <jsp:param name="targetType" value="COMMUNITY"/>
+            </jsp:include>    
+
         </main>
+
+        
     </body>
 </html>

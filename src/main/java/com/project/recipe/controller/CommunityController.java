@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.recipe.common.Fileupload;
+import com.project.recipe.common.Paging;
+import com.project.recipe.dao.CommentDAO;
 import com.project.recipe.dao.CommunityDAO;
 import com.project.recipe.dao.ImgDAO;
+import com.project.recipe.vo.CommentVO;
 import com.project.recipe.vo.CommunityVO;
 import com.project.recipe.vo.ImgVO;
 import com.project.recipe.vo.MemberVO;
@@ -30,6 +34,7 @@ public class CommunityController {
     private final CommunityDAO communityDAO;
     private final Fileupload fileupload;
     private final ImgDAO imgDAO;
+    private final CommentDAO commentDAO;
     
 
     // 커뮤니티 목록 조회
@@ -85,14 +90,32 @@ public class CommunityController {
 
     //커뮤니티 조회 함수
     @GetMapping ("/community_view")
-    public String communityView( int community_id, Model model ){
+    public String communityView( 
+            int community_id,
+            @RequestParam(defaultValue = "1") int page,
+            Model model ){
 
         CommunityVO community = communityDAO.communitySelect( community_id );
 
         ImgVO img = imgDAO.img_select(community_id, "COMMUNITY");
 
+        // 댓글 불러오기
+        int count = commentDAO.commentCount(community_id, "COMMUNITY");
+        Paging paging = new Paging(page, community_id, count);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("target_id",community_id);
+        map.put("target_type","COMMUNITY");
+        map.put("size",paging.getSize());
+        map.put("offset",paging.getOffset());
+       
+        List<CommentVO> list = commentDAO.getListPaging(map);
+
         model.addAttribute("community", community);
         model.addAttribute("img",img);
+        model.addAttribute("list",list);
+        model.addAttribute("count", count);
+        model.addAttribute("paging", paging);
 
         return "community/community_view";
 
@@ -169,7 +192,7 @@ public class CommunityController {
     public Map<String, Object> communityDelete( int community_id ) {
         Map<String, Object> map = new HashMap<>();
         int result = 0;
-        int img_res = 0;
+        
         
         CommunityVO community = communityDAO.communitySelect(community_id);
         
@@ -184,7 +207,7 @@ public class CommunityController {
         
         if( img != null){
             fileupload.deleteFiles(img.getImage_list(), "community");
-            img_res = imgDAO.img_delete(community_id,"COMMUNITY");
+            imgDAO.img_delete(community_id,"COMMUNITY");
         }
       
         map.put("result", result);
