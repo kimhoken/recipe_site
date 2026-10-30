@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.recipe.common.Fileupload;
 import com.project.recipe.common.Paging;
+import com.project.recipe.common.ViewCount;
 import com.project.recipe.dao.CommentDAO;
 import com.project.recipe.dao.CommunityDAO;
 import com.project.recipe.dao.ImgDAO;
@@ -35,6 +36,7 @@ public class CommunityController {
     private final Fileupload fileupload;
     private final ImgDAO imgDAO;
     private final CommentDAO commentDAO;
+    private final ViewCount viewCount;
     
 
     // 커뮤니티 목록 조회
@@ -100,6 +102,9 @@ public class CommunityController {
         if (community == null) {
             return "redirect:/list.do";
         }
+
+        viewCount.increaseCommunity(community_id);
+        community = communityDAO.communitySelect(community_id);
 
         ImgVO img = imgDAO.img_select(community_id, "COMMUNITY");
 

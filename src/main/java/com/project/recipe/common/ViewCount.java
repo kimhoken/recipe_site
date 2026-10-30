@@ -25,9 +25,9 @@ public class ViewCount {
         increase("RECIPE", recipe_id, "viewedRecipe");
     }
 
-    //  게시판 조회수 중복 방지
-    public void increaseBoard(int board_id) {
-        increase("BOARD", board_id, "viewedBoard");
+    // 커뮤니티 조회수 중복 방지
+    public void increaseCommunity(int community_id) {
+        increase("COMMUNITY", community_id, "viewedCommunity");
     }
 
     
@@ -70,8 +70,8 @@ public class ViewCount {
         } else if ("RECIPE".equals(content_type)) {
             viewCountDao.increaseRecipeViewCount(content_id);
 
-        } else if ("BOARD".equals(content_type)) {
-            viewCountDao.increaseBoardViewCount(content_id);
+        } else if ("COMMUNITY".equals(content_type)) {
+            viewCountDao.increaseCommunityViewCount(content_id);
 
         } 
     }

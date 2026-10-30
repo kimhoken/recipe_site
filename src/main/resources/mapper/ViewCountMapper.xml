@@ -42,11 +42,12 @@
         where recipe_id = #{recipe_id}
     </update>
 
-    <!--  게시판 조회수 증가 -->
-    <update id="increaseBoardViewCount" parameterType="int">
-        update board
+    <!-- 커뮤니티 조회수 증가 -->
+    <update id="increaseCommunityViewCount" parameterType="int">
+        update community
         set view_count = ifnull(view_count, 0) + 1
-        where board_id = #{board_id}
+        where community_id = #{community_id}
+          and status = 'ACTIVE'
     </update>
 
     

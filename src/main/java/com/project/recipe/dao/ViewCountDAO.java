@@ -24,8 +24,8 @@ public interface ViewCountDAO {
     //  레시피 조회수 증가
     int increaseRecipeViewCount(int recipe_id);
 
-    //  게시판 조회수 증가
-    int increaseBoardViewCount(int board_id);
+    // 커뮤니티 조회수 증가
+    int increaseCommunityViewCount(@Param("community_id") int community_id);
 
     
 }
