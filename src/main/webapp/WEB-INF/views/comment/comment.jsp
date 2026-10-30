@@ -121,7 +121,7 @@
     <h2 class="comment-title">댓글 <span class="comment-count"></span></h2>
 
     <div class="comment-write">
-        <form>
+        <form onsubmit="event.preventDefault(); insert(this)">
             <input type="hidden" name="member_id" value="${user.member_id}"/>
             <input type="hidden" name="target_id" value="${community.community_id}"/>
             <input type="hidden" name="target_type" value="${param.targetType}"/>
@@ -133,7 +133,7 @@
             <input class="comment-input" type="text" name="content"
             placeholder="댓글을 입력해주세요." aria-label="댓글 입력"/>
             
-            <button class="comment-register" type="button" onclick="insert(this.form)">등록</button>
+            <button class="comment-register" type="submit">등록</button>
             
         </form>
     </div>
