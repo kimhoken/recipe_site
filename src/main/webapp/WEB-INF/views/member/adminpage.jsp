@@ -135,10 +135,7 @@
                                     <li>
                                         <a href="/admin/recipe?status=delete">삭제 레시피</a>
                                     </li>
-
-                                    <li>
-                                        <a href="/admin/review">레시피 후기</a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
 

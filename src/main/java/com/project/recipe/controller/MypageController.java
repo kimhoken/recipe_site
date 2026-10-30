@@ -39,12 +39,37 @@ public class MypageController {
     private final InquiryDAO inquiryDAO; 
     private final ImgDAO imgDAO;
     
-    // 보류___2
-    // private final RecipeDAO recipeDAO;
-    // private final CommentManagementDAO commentManagementDAO;
-    // private final BookmarkDAO bookmarkDAO;
-    // 보류__2
 
+    private final RecipeManagementDAO recipeManagementDAO;
+
+    
+    private final CommentManagementDAO commentManagementDAO;
+    private final BookmarkDAO bookmarkDAO;
+
+    private  void userPaging( String type, MypageDTO dto, Model model) {
+
+        int totalcount = switch (type) {
+            case "recipe" -> recipeManagementDAO.countUserRecipe(dto);
+            case "comment" -> commentManagementDAO.countUserComment(dto);
+            case "bookmark" -> bookmarkDAO.countUserBookmark(dto);
+
+            default -> throw new IllegalArgumentException(
+                "지원하지 않는 메뉴: " + type );
+        };
+
+        applyPaging(dto, totalcount, model);
+
+        List<?> list = switch (type) {
+            case "recipe" -> recipeManagementDAO.getUserRecipeList(dto);
+            case "comment" -> commentManagementDAO.getUserCommentList(dto);
+            case "bookmark" -> bookmarkDAO.getUserBookmarkList(dto);
+
+            default -> throw new IllegalArgumentException("지원하지 않는 메뉴: " + type);
+        };
+
+        model.addAttribute("list", list);
+    }
+    
     // 페이징 공통 함수 처리 
     private Paging applyPaging(MypageDTO mypageDTO, int totalcount, Model model){
         if(mypageDTO.getPage() == 0){
@@ -67,47 +92,13 @@ public class MypageController {
 
         return paging;
     }
-
-    /* 유지보수 후 바꿀 예정 
-    // 회원 레시피 페이징
-    private void userRecipePaging( MypageDTO mypageDTO , Model model){
-        
-    int totalcount = recipeDAO.countUserRecipe( mypageDTO );
-    applyPaging(mypageDTO, totalcount, model);
-    
-    List<RecipeVO> list = recipeDAO.getUserRecipeList(mypageDTO);
-    
-    model.addAttribute("list", list);
-}
-// 회원 댓글 페이징
-private void userCommentPaging( MypageDTO mypageDTO, Model model){
-    
-int totalcount = commentManagementDAO.countUserComment(mypageDTO);
-applyPaging(mypageDTO, totalcount, model);
-
-List<CommentVO> list = commentManagementDAO.getUserCommentList(mypageDTO);
-
-model.addAttribute("list", list);
-}
-
-// 회원 북마크 페이징
-private void userBookmarkPaging(MypageDTO mypageDTO, Model model){
-    
-int totalcount = bookmarkDAO.countUserBookmark(mypageDTO);
-applyPaging(mypageDTO, totalcount, model);
-
-List<BookmarkVO> list = bookmarkDAO.getUserBookmarkList(mypageDTO);
-
-model.addAttribute("list", list);
-}
-
-*/
+   
     //유저 홈 페이징
     public void userHomePage(Model model, int member_id){
         model.addAttribute("activity", activityDAO.userActivity(member_id));
-        // model.addAttribute("recentlyRecipeList", recipeDAO.recentlyUserRecipe(member_id));
-        // model.addAttribute("commentList", commentManagementDAO.userComment(member_id));
-        // model.addAttribute("bookmarkList", bookmarkDAO.userBookmark(member_id));
+        model.addAttribute("recentlyRecipeList", recipeManagementDAO.recentlyUserRecipe(member_id));
+        model.addAttribute("commentList", commentManagementDAO.userComment(member_id));
+        model.addAttribute("bookmarkList", bookmarkDAO.userBookmark(member_id));
     }
 
     //유저 문의 페이지
@@ -179,7 +170,7 @@ model.addAttribute("list", list);
         } else if (menu.equals("account" )){
             contentPage = "/WEB-INF/views/member/mypage/mypage_info.jsp";                       
         } else if (menu.equals("recipe")){
-            contentPage = "/WEB-INF/views/member/mypage/mypage_myrecipe.jsp";                         
+            contentPage = "/WEB-INF/views/member/mypage/mypage_myrecipe.jsp";
         } else if (menu.equals("comment")){
             contentPage = "/WEB-INF/views/member/mypage/mypage_mycomment.jsp";                          
         } else if (menu.equals("bookmark")){
@@ -195,9 +186,9 @@ model.addAttribute("list", list);
         MypageDTO mypageDTO = new MypageDTO();
         mypageDTO.setMember_id(member_id);
 
-        // model.addAttribute("recipeCount", recipeDAO.countUserRecipe(mypageDTO));
-        // model.addAttribute("commentCount", commentManagementDAO.countUserComment(mypageDTO));
-        // model.addAttribute("bookmarkCount", bookmarkDAO.countUserBookmark(mypageDTO));
+        model.addAttribute("recipeCount", recipeManagementDAO.countUserRecipe(mypageDTO));
+        model.addAttribute("commentCount", commentManagementDAO.countUserComment(mypageDTO));
+        model.addAttribute("bookmarkCount", bookmarkDAO.countUserBookmark(mypageDTO));
     }
     
     // 다른 회원 페이지 조회
@@ -228,13 +219,13 @@ model.addAttribute("list", list);
         String contentPage = "/WEB-INF/views/member/mypage/mypage_profile_home.jsp";
         userHomePage(model, member_id);
         
-        // if (mypageDTO.getMenu().equals("recipe")){
-        //     userRecipePaging(mypageDTO, model);
-        //     contentPage = "/WEB-INF/views/member/mypage/mypage_profile_recipe.jsp";
-        // } else if(mypageDTO.getMenu().equals("comment")){
-        //     userCommentPaging(mypageDTO, model);
-        //     contentPage = "/WEB-INF/views/member/mypage/mypage_profile_comment.jsp";
-        // } 
+        if (mypageDTO.getMenu().equals("recipe")){
+            userPaging("recipe", mypageDTO, model);
+            contentPage = "/WEB-INF/views/member/mypage/mypage_profile_recipe.jsp";
+        } else if(mypageDTO.getMenu().equals("comment")){
+            userPaging("comment", mypageDTO, model);
+            contentPage = "/WEB-INF/views/member/mypage/mypage_profile_comment.jsp";
+        } 
 
         setTotalCount(member_id, model);
         
@@ -272,12 +263,12 @@ model.addAttribute("list", list);
         
         if(mypageDTO.getMenu().equals("home")){
             userHomePage(model, user.getMember_id());
-        // } else if(mypageDTO.getMenu().equals("recipe")){
-        //     userRecipePaging(mypageDTO, model);
-        // } else if(mypageDTO.getMenu().equals("comment")){
-        //     userCommentPaging(mypageDTO, model);
-        // } else if(mypageDTO.getMenu().equals("bookmark")){
-        //     userBookmarkPaging(mypageDTO, model);
+        } else if(mypageDTO.getMenu().equals("recipe")){
+            userPaging("recipe", mypageDTO, model);
+        } else if(mypageDTO.getMenu().equals("comment")){
+            userPaging("comment", mypageDTO, model);            
+        } else if(mypageDTO.getMenu().equals("bookmark")){
+            userPaging("bookmark", mypageDTO, model);            
         } else if(mypageDTO.getMenu().equals("inquiry")){
             userInquiry(mypageDTO.getPage(), model, user, status);
         }

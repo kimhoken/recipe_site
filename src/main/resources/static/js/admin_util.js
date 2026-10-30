@@ -28,29 +28,29 @@ function setImg(id, src, rootElement) {
     }
 }
 
-function setImgs(id, imglist, rootElement) {
-    const root = getActiveRoot(rootElement);
-    const box = root.querySelector("#" + id);
+// function setImgs(id, imglist, rootElement) {
+//     const root = getActiveRoot(rootElement);
+//     const box = root.querySelector("#" + id);
 
-    if (!box) {
-        return;
-    }
+//     if (!box) {
+//         return;
+//     }
 
-    box.innerHTML = "";
+//     box.innerHTML = "";
 
-    if (!imglist || imglist.length == 0) {
-        box.textContent = "-";
-        return;
-    }
+//     if (!imglist || imglist.length == 0) {
+//         box.textContent = "-";
+//         return;
+//     }
 
-    imglist.forEach(img => {
-        box.innerHTML += `
-            <img src="/upload/review/${img}"
-                 class="modal-review-img"
-                 onclick="openImageModal(this.src)">
-        `;
-    });
-}
+//     imglist.forEach(img => {
+//         box.innerHTML += `
+//             <img src="/upload/review/${img}"
+//                  class="modal-review-img"
+//                  onclick="openImageModal(this.src)">
+//         `;
+//     });
+// }
 
 function setA(id, path, rootElement){
     const root = getActiveRoot(rootElement);

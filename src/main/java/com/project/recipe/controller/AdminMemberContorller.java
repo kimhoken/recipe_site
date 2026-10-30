@@ -31,10 +31,7 @@ public class AdminMemberContorller {
 
     // 회원 페이징 함수
     private void memberPaging(Model model, AdminMemberDTO admin){
-        if(admin.getPage() <= 0){
-            admin.setPage(1);
-        }
-
+        
         int totalcount = memberDAO.memberCount();
 
         Paging paging = new Paging(admin.getPage(), 5, totalcount);

@@ -9,7 +9,7 @@ public interface CommentDAO {
 
     int insertComment(CommentVO community);
     
-    int deleteComment(int comment_id);
+    int deleteComment(CommentVO comment);
     
     int update(CommentVO comment);
     

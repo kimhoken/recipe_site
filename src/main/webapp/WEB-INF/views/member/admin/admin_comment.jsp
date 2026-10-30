@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
+
+    <script src="${pageContext.request.contextPath}/js/admin_util.js"></script>
+    
     <script>
         let selcomment;
 

@@ -49,10 +49,6 @@
         where board_id = #{board_id}
     </update>
 
-    <update id="increaseReviewViewCount">
-        update review
-        set view_count = ifnull(view_count, 0) + 1
-        where review_id = #{review_id}
-    </update>
+    
 
 </mapper>

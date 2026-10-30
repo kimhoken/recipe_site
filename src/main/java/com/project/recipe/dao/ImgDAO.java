@@ -16,8 +16,6 @@ public interface ImgDAO {
 
     int img_delete(int target_id, String target_type);
 
-    int img_insert_review(ImgVO vo);
-
     int img_update(ImgVO vo);
 }
 

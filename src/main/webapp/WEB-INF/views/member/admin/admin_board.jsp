@@ -2,6 +2,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <head>
+            <script src="${pageContext.request.contextPath}/js/admin_util.js"></script>
             <script>
 
                 let selboard;
@@ -35,25 +36,25 @@
                 }
 
                 // 상세 패널을 닫고 선택 상태를 해제
-                function board_view(board_id) {
+                function board_view(community_id) {
                     fetch("/admin/board/view", {
                         method: 'post',
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: 'board_id=' + board_id
+                        body: 'community_id=' + community_id
                     }).then(res => res.json())
                         .then(dto => {
                             console.log(dto);
 
                             fileboard(dto);
 
-                            selboard = dto.board_id;
+                            selboard = dto.community_id;
 
                             // 회원 정지 상태 변경 함수
                             document.querySelector(".bd-btn-hidden").onclick =
-                                () => boardhidden(dto.board_id);
+                                () => boardhidden(dto.community_id);
                             // 신고 내역 보려 가는 함수 추가할 예정
                             document.querySelector(".bd-btn-delete").onclick =
-                                () => boarddelete(dto.board_id);
+                                () => boarddelete(dto.community_id);
                             document.querySelector(".bd-detail-panel").classList.add("active");
                         })
                 }
@@ -62,7 +63,7 @@
                 function fileboard(dto) {
                     setText("title", dto.title);
                     setText("user", dto.nickname);
-                    setText("type", dto.board_type);
+                    setText("type", dto.community_type);
                     setText("content", dto.content);
                     setText("view", dto.view_count);
                     setText("comment", dto.comment_count);
@@ -88,7 +89,7 @@
                     fetch("/admin/board/hidden", {
                         method: 'post',
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: 'board_id=' + selboard
+                        body: 'community_id=' + selboard
                     })
                         .then(res => res.json())
                         .then(data => {
@@ -107,7 +108,7 @@
                     fetch("/admin/board/delete", {
                         method: 'post',
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: 'board_id=' + selboard
+                        body: 'community_id=' + selboard
                     })
                         .then(res => res.json())
                         .then(data => {
@@ -163,7 +164,7 @@
                             </tr>
                             <c:forEach var="board" items="${list}">
 
-                                <tr onclick="board_view('${board.board_id}')">
+                                <tr onclick="board_view('${board.community_id}')">
                                     <td>                                        
                                         <span>${board.title}</span>
                                     </td>
