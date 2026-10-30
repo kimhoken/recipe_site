@@ -168,7 +168,7 @@
 
         <div id="id_find">
             <form class="find-form">
-                <img src="/images/identity-card.png" class="find-img" />
+                <img src="/images/login/identity-card.png" class="find-img" />
 
                 <h3 class="find-title">아이디 찾기</h3>
 

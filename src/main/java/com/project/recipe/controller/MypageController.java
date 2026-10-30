@@ -41,7 +41,7 @@ public class MypageController {
     
     // 보류___2
     // private final RecipeDAO recipeDAO;
-    // private final CommentDAO commentDAO;
+    // private final CommentManagementDAO commentManagementDAO;
     // private final BookmarkDAO bookmarkDAO;
     // 보류__2
 
@@ -82,10 +82,10 @@ public class MypageController {
 // 회원 댓글 페이징
 private void userCommentPaging( MypageDTO mypageDTO, Model model){
     
-int totalcount = commentDAO.countUserComment(mypageDTO);
+int totalcount = commentManagementDAO.countUserComment(mypageDTO);
 applyPaging(mypageDTO, totalcount, model);
 
-List<CommentVO> list = commentDAO.getUserCommentList(mypageDTO);
+List<CommentVO> list = commentManagementDAO.getUserCommentList(mypageDTO);
 
 model.addAttribute("list", list);
 }
@@ -106,7 +106,7 @@ model.addAttribute("list", list);
     public void userHomePage(Model model, int member_id){
         model.addAttribute("activity", activityDAO.userActivity(member_id));
         // model.addAttribute("recentlyRecipeList", recipeDAO.recentlyUserRecipe(member_id));
-        // model.addAttribute("commentList", commentDAO.userComment(member_id));
+        // model.addAttribute("commentList", commentManagementDAO.userComment(member_id));
         // model.addAttribute("bookmarkList", bookmarkDAO.userBookmark(member_id));
     }
 
@@ -196,7 +196,7 @@ model.addAttribute("list", list);
         mypageDTO.setMember_id(member_id);
 
         // model.addAttribute("recipeCount", recipeDAO.countUserRecipe(mypageDTO));
-        // model.addAttribute("commentCount", commentDAO.countUserComment(mypageDTO));
+        // model.addAttribute("commentCount", commentManagementDAO.countUserComment(mypageDTO));
         // model.addAttribute("bookmarkCount", bookmarkDAO.countUserBookmark(mypageDTO));
     }
     

@@ -82,12 +82,14 @@
             useGeneratedKeys="true"
             keyProperty="img_id">
 
-        insert into img (
+        insert into image (
             image_list,
-            notice_id
+            target_id,
+            target_type
         ) values (
             #{image_list},
-            #{notice_id}
+            #{target_id},
+            #{target_type}
         )
 
     </insert>
@@ -98,8 +100,9 @@
             resultType="img">
 
         select *
-        from img
-        where notice_id = #{notice_id}
+        from image
+        where target_id = #{target_id}
+            and target_type= "NOTICE"
         limit 1
 
     </select>
@@ -108,9 +111,10 @@
     <update id="notice_img_update"
             parameterType="img">
 
-        update img
+        update image
         set image_list = #{image_list}
-        where notice_id = #{notice_id}
+        where target_id = #{target_id}
+            and target_type = "NOTICE"
 
     </update>
 
@@ -118,8 +122,9 @@
     <delete id="notice_img_delete"
             parameterType="int">
 
-        delete from img
-        where notice_id = #{notice_id}
+        delete from image
+        where target_id = #{target_id}
+            and target_type = "NOTICE"
 
     </delete>
 

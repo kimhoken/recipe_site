@@ -43,12 +43,14 @@ public class AdminMemberContorller {
         admin.setSize(paging.getSize());
 
         List<MemberVO> list = memberDAO.MemberSearch(admin);
+       
         
         model.addAttribute("list", list);
         model.addAttribute("totalcount", totalcount );
         model.addAttribute("paging", paging);
         model.addAttribute("adminmember", admin);
-
+       
+       
     }
 
     // 회원 페이지 이동 함수

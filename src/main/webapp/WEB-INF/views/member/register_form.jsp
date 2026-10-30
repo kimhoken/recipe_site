@@ -51,8 +51,8 @@
 
                     <div class="join-bottom">
                         <img src="/images/fork.png"/>   
-                        <img src="/images/cooking-pot2.png"/>                     
-                        <img src="/images/bowl.png"/>
+                        <img src="/images/login/cooking-pot2.png"/>                     
+                        <img src="/images/login/bowl.png"/>
                     </div>
                 </div>
 
