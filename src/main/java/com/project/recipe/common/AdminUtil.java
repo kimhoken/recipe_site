@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import com.project.recipe.dao.InquiryDAO;
 import com.project.recipe.dao.MemberDAO;
 import com.project.recipe.dao.RecipeManagementDAO;
+import com.project.recipe.dto.AdminMemberDTO;
 // import com.project.recipe.dao.ReportDAO;
 import com.project.recipe.vo.MemberVO;
 
@@ -96,7 +97,7 @@ public class AdminUtil {
     // 회원/ 레시피/ 문의/ 신고 갯수 함수
     public void getTotalCount(Model model){
 
-        int userTotal = memberDAO.memberCount();
+        int userTotal = memberDAO.memberCount(new AdminMemberDTO());
 
         int recipeTotal = recipeManagementDAO.RecipeCount(null);
 

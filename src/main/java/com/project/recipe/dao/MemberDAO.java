@@ -25,7 +25,7 @@ public interface MemberDAO {
 
     int secessionUser( MemberVO vo);
 
-    int memberCount();
+    int memberCount( AdminMemberDTO admin );
 
     List<MemberVO> MemberSearch( AdminMemberDTO admin );
 

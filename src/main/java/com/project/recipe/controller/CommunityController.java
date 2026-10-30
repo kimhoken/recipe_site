@@ -105,7 +105,7 @@ public class CommunityController {
 
         // 댓글 불러오기
         int count = commentDAO.commentCount(community_id, "COMMUNITY");
-        Paging paging = new Paging(page, community_id, count);
+        Paging paging = new Paging(page, 5, count);
 
         Map<String, Object> map = new HashMap<>();
         map.put("target_id",community_id);

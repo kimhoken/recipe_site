@@ -88,7 +88,7 @@
                         <div class="ra-step">
                             <img class="ra-step-img" src="/upload/recipe/\${order.cook_image}">
                             <div class="ra-step-body">
-                                <div class="ra-step-title">\${order.order}단계</div>
+                                <div class="ra-step-title">\${order.cook_order}단계</div>
                                 <small class="ra-step-desc">\${order.description}</small>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             .then(data => {
                                 if (data.result == 1) {
                                     alert(data.title + " 수정돠었습니다.");
-                                    location.href = 'redirect:/admin?menu=recipe';
+                                    location.reload();
                                 }
                             })
                     }

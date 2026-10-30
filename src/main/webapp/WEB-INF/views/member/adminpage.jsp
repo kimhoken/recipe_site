@@ -16,6 +16,7 @@
 
         <script src="/js/util.js"></script>
         <script src="/js/logout.js"></script>
+        <script src="${pageContext.request.contextPath}/js/admin_util.js"></script>
 
         <script>
                             
