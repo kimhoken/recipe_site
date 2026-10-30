@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 
 import com.project.recipe.dao.InquiryDAO;
 import com.project.recipe.dao.MemberDAO;
-// import com.project.recipe.dao.RecipeDAO;
+import com.project.recipe.dao.RecipeManagementDAO;
 // import com.project.recipe.dao.ReportDAO;
 import com.project.recipe.vo.MemberVO;
 
@@ -19,8 +19,8 @@ public class AdminUtil {
     private final HttpSession httpSession;
     private final MemberDAO memberDAO;
     private final InquiryDAO inquiryDAO;
-    // private final RecipeDAO recipeDAO;
-    // private final ReportDAO reportDAO;
+    private final RecipeManagementDAO recipeManagementDAO;
+    // private final reportDAO reportDAO;
 
     
     // 카테고리 매핑 함수
@@ -98,7 +98,7 @@ public class AdminUtil {
 
         int userTotal = memberDAO.memberCount();
 
-        // int recipeTotal = recipeDAO.RecipeCount(null);
+        int recipeTotal = recipeManagementDAO.RecipeCount(null);
 
         int inquiryTotal = inquiryDAO.inquiryCount();
         
@@ -107,7 +107,7 @@ public class AdminUtil {
         model.addAttribute("userTotal",userTotal);
         model.addAttribute("inquiryTotal", inquiryTotal);
         // model.addAttribute("reportTotal", reportTotal);
-        // model.addAttribute("recipeTotal",recipeTotal);
+        model.addAttribute("recipeTotal",recipeTotal);
         
     }
 
