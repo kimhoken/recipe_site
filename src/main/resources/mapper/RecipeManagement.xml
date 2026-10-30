@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.recipe.dao.RecipeManagementDAO">
+
+    <!-- 회원이 작성한 레시피 갯수 조회 -->
+    <select id="countUserRecipe" parameterType="mypage" resultType="int">
+        SELECT count(*) FROM recipe 
+        WHERE member_id = #{member_id} 
+    </select>
+
+    <!-- 회원의 전체 레시피 리스트 조회 -->
+    <select id="getUserRecipeList" parameterType="mypage" resultType="recipe">
+        SELECT * FROM recipe
+        WHERE member_id = #{member_id}
+        <choose>
+            <when test="sort == 'asc'">
+                ORDER BY recipe_id ASC
+            </when>
+            <when test="sort == 'view'">
+                ORDER BY view_count DESC, recipe_id DESC
+            </when>
+            <otherwise>
+                ORDER BY recipe_id DESC
+            </otherwise>
+        </choose>
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 마이페이지 레시피 정보 5개 출력 -->
+    <select id="recentlyUserRecipe" resultType="recipe">
+        SELECT * FROM recipe
+        WHERE member_id = #{member_id}
+        ORDER BY recipe_id DESC LIMIT 5
+    </select>
+
+</mapper>

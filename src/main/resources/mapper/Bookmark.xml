@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.recipe.dao.BookmarkDAO">
+<!-- 최근 북마크 5개 조회 -->
+    <select id="userBookmark" resultType="bookmark">
+        SELECT b.bookmark_id,
+            b.created_date,
+            r.recipe_id,
+            r.title,
+            r.thumbnail,
+            m.nickname
+        FROM bookmark b
+        INNER JOIN recipe r
+            ON b.recipe_id = r.recipe_id
+        INNER JOIN member m
+            ON r.member_id = m.member_id
+        WHERE b.member_id = #{member_id}
+        ORDER BY b.created_date DESC
+        LIMIT 5;
+    </select>
+
+<!-- 회원이 작성한 북마크 갯수 조회 -->
+    <select id="countUserBookmark" parameterType="mypage">
+        SELECT count(*) FROM bookmark
+        WHERE member_id = #{member_id} 
+    </select>
+
+<!-- 회원의 전체 북마크 리스트 조회 -->
+    <select id="getUserBookmarkList" parameterType="mypage" resultType="bookmark">
+        SELECT 
+            b.bookmark_id,
+            r.recipe_id,
+            r.title,
+            r.thumbnail,
+            r.created_date,
+            m.nickname
+        FROM bookmark b
+        INNER JOIN recipe r
+            ON b.recipe_id = r.recipe_id
+        INNER JOIN member m
+            ON r.member_id = m.member_id
+        WHERE b.member_id = #{member_id}
+        <choose>
+            <when test="sort == 'asc'">
+                ORDER BY b.bookmark_id ASC
+            </when>
+            <otherwise>
+                ORDER BY b.bookmark_id DESC
+            </otherwise>
+        </choose>
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+<!-- 북마크 조회/ 등록/ 삭제 -->
+    <select id="selectbookmark" resultType="bookmark">
+        select *
+        from bookmark 
+        where recipe_id = #{recipe_id} 
+        and member_id = #{member_id}
+    </select>
+
+    <insert id="insertbookmark" parameterType="bookmark">
+        insert into bookmark( member_id, recipe_id, created_date )
+        values( #{member_id}, #{recipe_id}, now() )
+    </insert>
+
+    <delete id="deletebookmark">
+        delete from bookmark
+        where bookmark_id = #{bookmark_id}
+    </delete>
+
+</mapper>

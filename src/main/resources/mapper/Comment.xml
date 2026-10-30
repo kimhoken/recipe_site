@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.project.recipe.dao.CommentDAO">
 
    <!-- 댓글 공통 등록: targe_id :등록될 레시피, 커뮤니티 id , target_type: ex) 'RECIPE', 'COMMUNITY' -->
-   <insert id="insertComment" parameterType="community">
+   <insert id="insertComment" parameterType="comment">
         INSERT INTO comment(target_id, target_type, content, member_id, rating)
         VALUES(#{target_id}, #{target_type}, #{content}, #{member_id}, #{rating})
     </insert>
