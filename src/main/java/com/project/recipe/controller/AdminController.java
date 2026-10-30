@@ -13,8 +13,9 @@ import com.project.recipe.common.AdminUtil;
 import com.project.recipe.common.Fileupload;
 import com.project.recipe.dao.MemberDAO;
 import com.project.recipe.vo.MemberVO;
-// import com.project.recipe.dao.RecipeDAO;
-// import com.project.recipe.vo.RecipeVO;
+import com.project.recipe.dao.RecipeDAO;
+import com.project.recipe.dao.RecipeManagementDAO;
+import com.project.recipe.vo.RecipeVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class AdminController {
     private String uploadPath;
 
     private final HttpSession httpSession;
-    ///rivate final RecipeDAO recipeDAO;
+    private final RecipeManagementDAO recipeManagementDAO;
     private final AdminUtil adminUtil;
     private final Fileupload fileupload;
     private final MemberDAO memberDAO;
@@ -43,12 +44,12 @@ public class AdminController {
 
         MemberVO user = (MemberVO) httpSession.getAttribute("user");
 
-        // List<RecipeVO> recentlyRecipe = recipeDAO.recentlyrecipe();
+        List<RecipeVO> recentlyRecipe = recipeManagementDAO.recentlyrecipe();
 
         adminUtil.getTotalCount(model);
 
         model.addAttribute("profileuser", user);
-        // model.addAttribute("list",recentlyRecipe);
+        model.addAttribute("list",recentlyRecipe);
         model.addAttribute("contentPage", "/WEB-INF/views/member/admin/admin_home.jsp");
 
         return "member/adminpage";

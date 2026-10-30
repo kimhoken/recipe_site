@@ -81,8 +81,6 @@ public class AdminUtil {
             contentPage = "/WEB-INF/views/member/admin/admin_notice.jsp";
         } else if (menu.equals("comment")){
             contentPage = "/WEB-INF/views/member/admin/admin_comment.jsp";
-        } else if(menu.equals("review")){
-            contentPage = "/WEB-INF/views/member/admin/admin_review.jsp";            
         } else if(menu.equals("board")){
             contentPage = "/WEB-INF/views/member/admin/admin_board.jsp";            
         } else if(menu.equals("mypage")){

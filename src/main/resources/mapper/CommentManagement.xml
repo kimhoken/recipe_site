@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.project.recipe.dao.CommentManagementDAO">
 
-
+<!-- 댓글 공통 sql문 -->
 <sql id="commentDisplay">
     select
         c.*,
@@ -45,6 +45,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             
 </sql>
 
+<!-- 관리자 검색 조건 -->
+<sql id="adminCommentFilter">
+    <where>
+        <if test="keyword != null and keyword != ''">
+            AND (
+                m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                OR r.title LIKE CONCAT('%', #{keyword}, '%')
+                OR b.title LIKE CONCAT('%', #{keyword}, '%')
+            )
+        </if>
+
+        <if test="status != null and status != '' ">
+            AND c.status = #{status}
+        </if>
+
+    </where>
+</sql>
+
 
 <!-- 회원 활동내역 최신 댓글 5개 조회 -->
 <select id="userComment" resultType="comment">
@@ -81,53 +99,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 관리자 댓글 총 갯수 조회 -->
     <select id="commentCount" parameterType="admincomment">
-        select count(c.comment_id) 
+        select count(*) 
         from comment c
-        join member m on c.member_id = m.member_id
-        left join board b on c.board_id = b.board_id
-        left join recipe r on r.recipe_id = c.recipe_id
-        where 1=1
+        LEFT JOIN member m
+            ON m.member_id = c.member_id
+        LEFT JOIN recipe r
+            ON c.target_type = 'RECIPE'
+            AND r.recipe_id = c.target_id
+        LEFT JOIN community b        
+            ON c.target_type = 'COMMUNITY'
+            AND b.community_id = c.target_id
 
-        <if test="keyword != null and keyword != ''">
-        and (
-            m.nickname like concat('%',#{keyword},'%')
-            or b.title like concat('%',#{keyword},'%')
-        )
-        </if>
-        <if test="status != null and status != '' ">
-        and c.status = #{status}
-        </if>       
+        <include refid="adminCommentFilter"/>      
 
     </select>
 
     <!-- 관리자 댓글 검색(카테고리 포함) 및 조회  -->
     <select id = "CommentSearch" parameterType="admincomment" resultType="admincomment">
-        select c.*, m.nickname, 
-        case 
-            when c.board_id is not null then b.title
-            when c.recipe_id is not null then r.title
-        end as title,
+        
+        <include refid="commentDisplay"/>
+        <include refid="adminCommentFilter"/>
 
-        case 
-            when c.recipe_id is not null then r.thumbnail
-            else 'no_board.png'
-        end as thumbnail
-
-        from comment c
-        join member m on c.member_id = m.member_id
-        left join board b on c.board_id = b.board_id
-        left join recipe r on r.recipe_id = c.recipe_id
-        where 1=1
-
-        <if test="keyword != null and keyword != ''">
-        and (
-            m.nickname like concat('%',#{keyword},'%')
-            or b.title like concat('%',#{keyword},'%')
-        )
-        </if>
-        <if test="status != null and status != '' ">
-        and c.status = #{status}
-        </if>       
         <choose>
 
             <when test="sort == 'oldest'">
@@ -150,28 +142,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 관리자 댓글 상세 정보 조회 -->
     <select id="selectComment" resultType="admincomment">
-        select c.*,
-        m.nickname, 
+        
+        <include refid="commentDisplay"/>
 
-        case 
-            when c.board_id is not null then b.title
-            when c.recipe_id is not null then r.title
-        end as title,
-
-        case 
-            when c.recipe_id is not null then r.thumbnail
-            else 'no_board.png'
-        end as thumbnail,
-
-        case
-            when c.board_id is not null then '게시글'
-            when c.recipe_id is not null then '레시피'
-        end as type    
-
-        from comment c
-        join member m on c.member_id = m.member_id
-        left join recipe r on r.recipe_id = c.recipe_id
-        left join board b on b.board_id = c.board_id
         where comment_id = #{comment_id}
 
     </select>

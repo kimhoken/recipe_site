@@ -4,6 +4,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.recipe.dao.RecipeManagementDAO">
 
+    <!-- 레시피 공통 부분 sql -->
+    <sql id="adminRecipeFrom">
+        From recipe r
+        Left JOIN member m ON m.member_id = r.member_id
+        LEFT JOIN category c ON c.category_id = r.category_id
+    </sql>
+
+    <!-- 관리자 페이지 검색 조건 -->
+    <sql id="adminRecipeFilter">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (
+                    r.title LIKE CONCAT('%', #{keyword}, '%')
+                    OR m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+
+            <if test="category != null and category != ''">
+                AND c.category_name = #{category}
+            </if>
+
+            <if test="status != null and status != ''">
+                AND r.status = #{status}
+            </if>
+
+            <if test="recommend != null">
+                AND r.recommend = #{recommend}
+            </if>
+        </where>
+    </sql>
+
     <!-- 회원이 작성한 레시피 갯수 조회 -->
     <select id="countUserRecipe" parameterType="mypage" resultType="int">
         SELECT count(*) FROM recipe 
@@ -33,6 +64,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM recipe
         WHERE member_id = #{member_id}
         ORDER BY recipe_id DESC LIMIT 5
+    </select>
+
+
+    <select id="RecipeCount"
+            parameterType="adminrecipe"
+            resultType="int">
+
+        SELECT COUNT(*)
+        <include refid="adminRecipeFrom"/>
+        <include refid="adminRecipeFilter"/>
+    </select>
+
+    <select id="RecipeList"
+            parameterType="adminrecipe"
+            resultType="recipe">
+
+        SELECT r.*, m.nickname, c.category_name
+        <include refid="adminRecipeFrom"/>
+        <include refid="adminRecipeFilter"/>
+
+        ORDER BY r.recipe_id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="selectrecipe" resultType="recipe">
+        SELECT r.*, m.nickname, c.category_name
+        <include refid="adminRecipeFrom"/>
+
+        WHERE r.recipe_id = #{recipe_id}
+    </select>
+
+    <update id="updateStatus" parameterType="recipe">
+        UPDATE recipe
+        SET status = #{status}
+        WHERE recipe_id = #{recipe_id}
+    </update>
+
+    <update id="updateRecipe" parameterType="recipe">
+        UPDATE recipe
+        SET recommend = #{recommend}
+        WHERE recipe_id = #{recipe_id}
+    </update>
+
+    <!-- 관리자 홈: 상태와 관계없이 최근 등록된 레시피 5개 -->
+    <select id="recentlyrecipe" resultType="recipe">
+        SELECT
+            ROW_NUMBER() OVER (
+                ORDER BY r.created_date DESC, r.recipe_id DESC
+            ) AS rank_num,
+            r.*,
+            m.nickname,
+            c.category_name
+
+        <include refid="adminRecipeFrom"/>
+
+        ORDER BY r.created_date DESC, r.recipe_id DESC
+        LIMIT 5
     </select>
 
 </mapper>

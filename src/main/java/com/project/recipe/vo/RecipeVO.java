@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Alias("recipe")
 public class RecipeVO {
     private int recipe_id;
+    private int rank_num;
     private String title;
     private String thumbnail;
     private String cooking_time;
@@ -33,4 +34,7 @@ public class RecipeVO {
 
     // member 테이블
     private String nickname;
+
+    // category 테이블 (관리자 페이지에서 레시피 출력시 사용)
+    private String category_name;
 }

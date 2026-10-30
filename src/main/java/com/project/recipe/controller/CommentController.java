@@ -43,12 +43,19 @@ public class CommentController {
     @PostMapping("/comment/delete")
     @ResponseBody
     public Map<String, Object> recommentDelete(int comment_id){
+        MemberVO user = (MemberVO) httpSession.getAttribute("user");
 
-        Map<String, Object> map =new HashMap<>();
+        if (user == null) {
+            return Map.of("result", 0);
+        }
 
-        int result = commentDAO.deleteComment( comment_id ) ;
-        map.put("result", result);
-        return map;
+        CommentVO comment = new CommentVO();
+        comment.setComment_id(comment_id);
+        comment.setMember_id(user.getMember_id());
+
+        int result = commentDAO.deleteComment(comment);
+
+        return Map.of("result", result);
     }
     
     @PostMapping("/comment/update")

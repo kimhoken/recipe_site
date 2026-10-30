@@ -8,7 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="CheckList"
             resultType="community">
         select * 
-        from community        
+        from community
+        where status = 'ACTIVE'
     </select>
 
     <select id="noticeList"
@@ -16,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select *
         from community    
         where community_type = "NOTICE"
+          and status = 'ACTIVE'
     </select>
 
     <insert id="communityInsert"
@@ -31,7 +33,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             resultType="community">
         select *
         from community
-        where community_id = #{community_id}    
+        where community_id = #{community_id}
+          and status = 'ACTIVE'
     </select>
 
     <update id="communityUpdate"
@@ -43,9 +46,83 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     </update>
 
-    <delete id="communityDelete">
-        delete from community
+    <update id="communityDelete" parameterType="community">
+        update community
+        set status = 'DELETE'
         where community_id = #{community_id}
-    </delete>
+          and member_id = #{member_id}
+          and status IN ('ACTIVE', 'HIDDEN')
+    </update>
+
+    <sql id="adminCommunityFilter">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (
+                    c.title LIKE CONCAT('%', #{keyword}, '%')
+                    OR m.nickname LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+
+            <if test="status != null and status != ''">
+                AND c.status = #{status}
+            </if>
+
+            <if test="community_type != null and community_type != ''">
+                AND c.community_type = #{community_type}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="adminCommunitySelect">
+        SELECT c.*, m.nickname,
+            (
+                SELECT COUNT(*)
+                FROM comment cm
+                WHERE cm.target_type = 'COMMUNITY'
+                  AND cm.target_id = c.community_id
+                  AND cm.status = 'ACTIVE'
+            ) AS comment_count
+        FROM community c
+        LEFT JOIN member m ON m.member_id = c.member_id
+    </sql>
+
+    <select id="boardCount" parameterType="adminboard" resultType="int">
+        SELECT COUNT(*)
+        FROM community c
+        LEFT JOIN member m ON m.member_id = c.member_id
+
+        <include refid="adminCommunityFilter"/>
+    </select>
+
+    <select id="BoardSearch" parameterType="adminboard" resultType="adminboard">
+        <include refid="adminCommunitySelect"/>
+        <include refid="adminCommunityFilter"/>
+
+        <choose>
+            <when test="sort == 'oldest'">
+                ORDER BY c.created_date ASC, c.community_id ASC
+            </when>
+            <when test="sort == 'view'">
+                ORDER BY c.view_count DESC, c.community_id DESC
+            </when>
+            <otherwise>
+                ORDER BY c.created_date DESC, c.community_id DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="adminBoardDetail" resultType="adminboard">
+        <include refid="adminCommunitySelect"/>
+
+        WHERE c.community_id = #{community_id}
+    </select>
+
+    <update id="boardStatus" parameterType="adminboard">
+        UPDATE community
+        SET status = #{status}
+        WHERE community_id = #{community_id}
+    </update>
 
 </mapper>

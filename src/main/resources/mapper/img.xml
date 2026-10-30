@@ -21,13 +21,7 @@
             and target_type = "INQUIRY"
         order by image_id asc
     </select>
-
-    <insert id="img_insert_review" parameterType="img"
-            useGeneratedKeys="true" keyProperty="img_id">
-        insert into image (image_list, target_id)
-        values ( #{image_list}, #{review_id} )
-    </insert>            
-
+    
     <delete id="img_delete">
         delete from image
         where target_id = #{target_id} 

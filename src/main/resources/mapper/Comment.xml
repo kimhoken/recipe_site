@@ -25,10 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>   
 
 
-    <delete id="deleteComment" parameterType="int">
-        DELETE FROM comment
-        WHERE comment_id = #{value}
-    </delete>
+    <update id="deleteComment" parameterType="comment">
+        UPDATE comment
+        SET status = 'DELETE'
+        WHERE comment_id = #{comment_id}
+          AND member_id = #{member_id}
+          AND status IN ('ACTIVE', 'HIDDEN')
+    </update>
 
     <update id="update" parameterType="comment">
         UPDATE comment

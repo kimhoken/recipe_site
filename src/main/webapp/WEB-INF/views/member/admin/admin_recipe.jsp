@@ -4,6 +4,8 @@
         <head>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin_recipe.css" />
 
+            <script src="${pageContext.request.contextPath}/js/admin_util.js"></script>
+
             <script>
                 let recipedetailrecipe;
                 let recipeStatus;

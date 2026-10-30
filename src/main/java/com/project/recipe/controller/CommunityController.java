@@ -97,6 +97,10 @@ public class CommunityController {
 
         CommunityVO community = communityDAO.communitySelect( community_id );
 
+        if (community == null) {
+            return "redirect:/list.do";
+        }
+
         ImgVO img = imgDAO.img_select(community_id, "COMMUNITY");
 
         // 댓글 불러오기
@@ -126,6 +130,10 @@ public class CommunityController {
     public String communityModify( Model model, int community_id){
 
         CommunityVO community = communityDAO.communitySelect( community_id );
+
+        if (community == null) {
+            return "redirect:/list.do";
+        }
 
         ImgVO img = imgDAO.img_select(community_id, "COMMUNITY");
 
@@ -190,32 +198,19 @@ public class CommunityController {
     @PostMapping("/community/delete")
     @ResponseBody 
     public Map<String, Object> communityDelete( int community_id ) {
-        Map<String, Object> map = new HashMap<>();
-        int result = 0;
-        
-        
-        CommunityVO community = communityDAO.communitySelect(community_id);
-        
-        ImgVO img = imgDAO.img_select(community_id, "COMMUNITY");
-        
-        if( community == null ){
-            map.put("result",0);
-            return map;
+        MemberVO user = (MemberVO) httpSession.getAttribute("user");
+
+        if (user == null) {
+            return Map.of("result", 0);
         }
-        
-        result = communityDAO.communityDelete(community_id);
-        
-        if( img != null){
-            fileupload.deleteFiles(img.getImage_list(), "community");
-            imgDAO.img_delete(community_id,"COMMUNITY");
-        }
-      
-        map.put("result", result);
 
+        CommunityVO community = new CommunityVO();
+        community.setCommunity_id(community_id);
+        community.setMember_id(user.getMember_id());
 
-        return map;
+        int result = communityDAO.communityDelete(community);
 
-
+        return Map.of("result", result);
     }
 
 

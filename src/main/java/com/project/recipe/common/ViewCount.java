@@ -30,11 +30,7 @@ public class ViewCount {
         increase("BOARD", board_id, "viewedBoard");
     }
 
-    // 레시피 후기 조회수 중복 방지
-    public void increaseReview(int review_id){
-        increase("REVIEW",review_id,"viewedReview");
-    }
-
+    
     //  공지/레시피/게시판 공통 조회수 처리
     private void increase(String content_type, int content_id, String sessionName) {
 
@@ -77,8 +73,6 @@ public class ViewCount {
         } else if ("BOARD".equals(content_type)) {
             viewCountDao.increaseBoardViewCount(content_id);
 
-        } else if("REVIEW".equals(content_type)) {
-            viewCountDao.increaseReviewViewCount(content_id);
-        }
+        } 
     }
 }
