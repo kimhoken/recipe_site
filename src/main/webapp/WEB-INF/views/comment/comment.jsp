@@ -1,6 +1,65 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--
+    [댓글 공통 화면 사용 방법]
+
+    1. 상세 페이지에서 포함하기 (한 페이지에 한 번만 포함)
+
+       <jsp:include page="/WEB-INF/views/comment/comment.jsp">
+           <jsp:param name="targetType" value="COMMUNITY"/>
+       </jsp:include>
+
+       레시피에서는 targetType을 RECIPE로 전달한다.
+       RECIPE일 때만 별점 입력과 등록된 별점을 표시한다.
+
+    2. 상세 조회 컨트롤러에서 준비할 데이터
+
+       target_id   : 현재 글 번호 (community_id 또는 recipe_id)
+       target_type : COMMUNITY 또는 RECIPE (댓글 조회와 등록에 같은 값 사용)
+       page        : 요청 페이지, 기본값 1
+
+       count = commentDAO.commentCount(target_id, target_type)
+       paging = new Paging(page, 5, count)
+
+       조회용 Map에 target_id, target_type, size, offset을 담는다.
+       size와 offset은 paging.getSize(), paging.getOffset()을 사용한다.
+       list = commentDAO.getListPaging(map)
+
+       Model 이름은 아래와 동일하게 전달해야 한다.
+       - list   : 현재 페이지 댓글 목록 (List<CommentVO>)
+       - count  : ACTIVE 댓글 전체 개수
+       - paging : 댓글 Paging 객체
+
+       부모 화면의 다른 목록에 list/paging을 쓰는 경우 이름 충돌에 주의한다.
+       로그인 회원 정보는 sessionScope.user를 사용하며,
+       작성자 ID는 서버에서 로그인 세션 값으로 설정한다.
+
+    3. 레시피 연결 전에 반드시 바꿀 부분 (현재는 커뮤니티 기준)
+
+       - 등록 폼의 target_id가 community.community_id로 고정되어 있다.
+         레시피에서는 recipe.recipe_id를 넘기도록 대상 ID를 공통화해야 한다.
+         targetType만 RECIPE로 바꾸는 것으로는 등록 대상 ID가 연결되지 않는다.
+
+       - 하단 pageUrl은 /community_view?community_id=... 로 고정되어 있다.
+         레시피에서는 /recipe_detail.do?recipe_id=... 로 연결해야 한다.
+         common/paging.jsp가 page 파라미터를 붙이므로 기본 URL에 page는 넣지 않는다.
+
+       - 제목의 comment-count가 비어 있으므로 전체 개수는 count로 출력한다.
+
+    4. 등록 / 수정 / 삭제
+
+       등록: POST /comment/insert, FormData -> CommentVO
+             target_id, target_type, content, rating(레시피일 때)
+       수정: POST /comment/update, FormData -> CommentVO
+             comment_id, content (평점 수정은 현재 구현되어 있지 않음)
+       삭제: POST /comment/delete, 폼 인코딩으로 comment_id 전달
+             실제 행 삭제가 아니라 status를 DELETE로 변경
+
+       성공 후 새로고침하여 컨트롤러에서 댓글을 다시 조회한다.
+       등록은 form의 submit 이벤트로 버튼 클릭과 Enter를 함께 처리한다.
+--%>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/comment.css">
 <script>
     function insert(f){
@@ -116,7 +175,7 @@
 
 </script>
 
-<%-- 화면 확인용 예시. 데이터 연결과 버튼 기능은 추후 구현 --%>
+<%-- 댓글 작성 폼과 현재 페이지 댓글 목록 --%>
 <section class="comment-section" aria-label="댓글">
     <h2 class="comment-title">댓글 <span class="comment-count"></span></h2>
 
